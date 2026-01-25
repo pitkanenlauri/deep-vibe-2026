@@ -3,8 +3,11 @@ import '../styles/global.css';
 import PhilosophyCard from '../components/philosophy/PhilosophyCard.astro';
 import profileData from '../data/profile.json';
 import SkillsChart from '../components/skills/SkillsChart';
+import Header from '../components/layout/Header.astro';
+import Section from '../components/layout/Section.astro';
+import Footer from '../components/layout/Footer.astro';
 
-const { hero, highlight, skills, philosophy, roots } = profileData;
+const { hero, highlight, experience, philosophy, skills, roots, meta } = profileData;
 ---
 
 <html lang="en">
@@ -12,65 +15,173 @@ const { hero, highlight, skills, philosophy, roots } = profileData;
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{hero.name} | {hero.headline}</title>
 		<meta name="description" content={hero.tagline} />
+
+		<!-- Preconnect to Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
-	<body class="min-h-screen bg-gray-50">
-		<main class="max-w-4xl mx-auto px-4 py-16">
-			<!-- Hero Section Placeholder -->
-			<section class="mb-16">
-				<h1 class="text-display text-gray-900">{hero.name}</h1>
-				<p class="text-headline text-gray-600 mt-2">{hero.headline}</p>
-				<p class="text-body text-muted mt-4">{hero.tagline}</p>
-			</section>
+	<body class="min-h-screen bg-gray-50 text-gray-800">
+		<Header name={hero.name} />
 
-			<!-- Highlight Section Placeholder -->
-			<section class="mb-16 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
-				<h2 class="text-title text-primary-600">{highlight.title}</h2>
-				<p class="text-small text-muted mt-1">{highlight.category} &middot; {highlight.context}</p>
-				<p class="text-body mt-3">{highlight.description}</p>
-			</section>
+		<main class="max-w-4xl mx-auto px-4">
+			<!-- Hero Section -->
+			<Section id="hero" class="pt-8 md:pt-12">
+				<div class="space-y-4">
+					<h1 class="text-display text-gray-900">{hero.name}</h1>
+					<p class="text-headline text-gray-600">{hero.headline}</p>
+					<p class="text-body text-muted max-w-2xl">{hero.tagline}</p>
 
-			<!-- Skills Section -->
-			<section class="mb-16">
-				<h2 class="text-headline text-gray-900 mb-8">Skills & Expertise</h2>
-				<SkillsChart client:idle skills={skills} />
-			</section>
+					<!-- Impact Stats Grid -->
+					<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8 md:mt-12">
+						{hero.impactStats.map((stat) => (
+							<div class="p-4 bg-white rounded-lg border border-gray-200 text-center">
+								<div class="text-headline md:text-display text-primary-600 font-bold">
+									{stat.value}
+								</div>
+								<div class="text-small text-gray-500 mt-1">{stat.unit}</div>
+								<div class="text-small font-medium text-gray-700 mt-2">
+									{stat.label}
+								</div>
+							</div>
+						))}
+					</div>
 
-			<!-- Philosophy Section -->
-			<section class="mb-16">
-				<h2 class="text-headline text-gray-900 mb-6">Philosophy</h2>
-				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-					{philosophy.map((item) => (
-						<PhilosophyCard
-							id={item.id}
-							title={item.title}
-							belief={item.belief}
-							source={item.source}
-						/>
-					))}
+					<!-- CTA Links -->
+					<div class="flex flex-wrap gap-4 mt-8">
+						{hero.ctaLinks.map((link) => (
+							<a
+								href={link.href}
+								target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+								rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+								class="inline-flex items-center gap-2 px-4 py-2 text-small font-medium text-primary-600 bg-white border border-gray-200 rounded-md hover:border-primary-500 hover:bg-primary-500/5 transition-colors duration-fast"
+							>
+								{link.label}
+							</a>
+						))}
+					</div>
 				</div>
-			</section>
+			</Section>
 
-			<!-- Roots Section -->
-			<section class="mb-16 roots-section">
-				<h2 class="text-headline text-gray-900 mb-6">Roots</h2>
-				<div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-					<div class="roots-header mb-4">
-						<p class="text-title text-gray-900">
-							{roots.degree}
-						</p>
-						<p class="text-body text-muted">
-							{roots.institution} · {roots.focus}
+			<!-- Highlight Section -->
+			<Section id="highlight" variant="highlight">
+				<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+					<div>
+						<h2 class="text-title text-primary-600">{highlight.title}</h2>
+						<p class="text-small text-muted mt-1">
+							{highlight.category} &middot; {highlight.context}
 						</p>
 					</div>
-					<blockquote class="roots-insight">
-						<p class="text-body">{roots.transferableInsight}</p>
-					</blockquote>
 				</div>
-			</section>
+				<p class="text-body mt-4">{highlight.description}</p>
+			</Section>
+
+			<!-- Experience Section -->
+			<Section id="experience" title="Experience">
+				<div class="space-y-8">
+					{experience.map((exp) => (
+						<article class="relative pl-6 border-l-2 border-gray-200">
+							<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary-500 border-4 border-gray-50" />
+
+							<header class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+								<div>
+									<h3 class="text-title text-gray-900">{exp.role}</h3>
+									<p class="text-body text-gray-600">{exp.company}</p>
+								</div>
+								<time class="text-small text-muted whitespace-nowrap">
+									{exp.period.start.slice(0, 4)} – {exp.period.end ? exp.period.end.slice(0, 4) : 'Present'}
+								</time>
+							</header>
+
+							<p class="text-body text-gray-700 mt-3">{exp.summary}</p>
+
+							{exp.tags && (
+								<div class="flex flex-wrap gap-2 mt-4">
+									{exp.tags.map((tag: string) => (
+										<span class="px-2 py-1 text-small bg-gray-100 text-gray-600 rounded">
+											{tag}
+										</span>
+									))}
+								</div>
+							)}
+						</article>
+					))}
+				</div>
+			</Section>
+
+			<!-- Philosophy Section -->
+			<Section id="philosophy" title="Philosophy">
+				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+					{philosophy.map((item) => (
+						<article class="p-6 bg-white rounded-lg border border-gray-200">
+							<h3 class="text-title text-gray-900">{item.title}</h3>
+							<p class="text-body text-gray-700 mt-3">{item.belief}</p>
+							{item.source && (
+								<p class="text-small text-muted mt-4 italic">
+									— {item.source.author}, {item.source.work}
+								</p>
+							)}
+						</article>
+					))}
+				</div>
+			</Section>
+
+			<!-- Skills Section -->
+			<Section id="skills" title="Skills">
+				<div class="space-y-8">
+					{skills.map((category) => (
+						<div>
+							<h3 class="text-title text-gray-700 mb-4">{category.category}</h3>
+							<div class="flex flex-wrap gap-3">
+								{category.skills.map((skill) => (
+									<div
+										class:list={[
+											'px-4 py-2 rounded-lg border text-small font-medium',
+											skill.highlight
+												? 'bg-primary-500/10 border-primary-500/30 text-primary-600'
+												: 'bg-gray-100 border-gray-200 text-gray-700',
+										]}
+									>
+										<span>{skill.name}</span>
+										<span class="ml-2 opacity-60">
+											{'●'.repeat(skill.level)}{'○'.repeat(5 - skill.level)}
+										</span>
+									</div>
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			</Section>
+
+			<!-- Roots Section -->
+			<Section id="roots" title="Roots">
+				<div class="p-6 bg-white rounded-lg border border-gray-200">
+					<p class="text-title text-gray-900">
+						{roots.degree}
+					</p>
+					<p class="text-body text-gray-600 mt-1">
+						{roots.institution} · {roots.focus}
+					</p>
+					<p class="text-body text-muted mt-4 italic">
+						"{roots.transferableInsight}"
+					</p>
+				</div>
+			</Section>
 		</main>
+
+		<Footer
+			buildTimestamp={meta.buildTimestamp}
+			agents={meta.agents}
+			bundleSize={meta.bundleSize}
+			sourceUrl={meta.sourceUrl}
+		/>
 	</body>
 </html>
