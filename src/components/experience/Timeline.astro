@@ -36,7 +36,7 @@ const { experiences } = Astro.props;
   <ol class="timeline-list" role="list" aria-label="Career timeline">
     {experiences.map((experience, index) => (
       <li class="timeline-entry" data-index={index}>
-        <TimelineItem experience={experience} client:visible />
+        <TimelineItem experience={experience} index={index} client:visible />
       </li>
     ))}
   </ol>

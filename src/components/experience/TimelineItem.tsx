@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface Metric {
   value: string;
@@ -25,6 +26,7 @@ interface Experience {
 
 interface Props {
   experience: Experience;
+  index?: number;
 }
 
 function formatPeriod(start: string, end: string | null): string {
@@ -37,13 +39,11 @@ function formatPeriod(start: string, end: string | null): string {
   return `${formatDate(start)} — ${end ? formatDate(end) : 'Present'}`;
 }
 
-export default function TimelineItem({ experience }: Props) {
+export default function TimelineItem({ experience, index = 0 }: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [height, setHeight] = useState<number>(0);
   const contentRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = typeof window !== 'undefined'
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    : false;
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (contentRef.current) {
@@ -64,8 +64,29 @@ export default function TimelineItem({ experience }: Props) {
 
   const { role, company, period, summary, deepDive, tags } = experience;
 
+  // Animation variants for scroll reveal
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      x: -24
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.1, 0.25, 1] as const,
+        delay: prefersReducedMotion ? 0 : index * 0.15
+      }
+    }
+  };
+
   return (
-    <article
+    <motion.article
+      variants={itemVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
       className="timeline-item bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden"
       aria-labelledby={`${experience.id}-title`}
     >
@@ -186,6 +207,6 @@ export default function TimelineItem({ experience }: Props) {
           </div>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

@@ -1,6 +1,7 @@
 ---
 import ImpactDashboard from './ImpactDashboard';
 import HeroConstellation from './HeroConstellation';
+import { HeroTextReveal, HeroItem } from '../animations/AnimatedSection';
 
 interface Props {
   name: string;
@@ -33,34 +34,43 @@ const iconPaths: Record<string, string> = {
 
 <section class="mb-16 relative">
   <HeroConstellation client:load />
-  <div class="mb-8 relative z-10">
-    <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
-      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-      <span>{location}</span>
-    </div>
-    <h1 class="text-display text-gray-900">{name}</h1>
-    <p class="text-headline text-gray-600 mt-2">{headline}</p>
-    <p class="text-body text-muted mt-4 max-w-2xl">{tagline}</p>
-
-    <div class="flex flex-wrap gap-3 mt-6">
-      {ctaLinks.map((link) => (
-        <a
-          href={link.href}
-          target={link.href.startsWith('mailto:') ? undefined : '_blank'}
-          rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-          class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
-        >
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-            <path d={iconPaths[link.icon] || iconPaths.mail} />
-          </svg>
-          {link.label}
-        </a>
-      ))}
-    </div>
-  </div>
+  <HeroTextReveal client:load className="mb-8 relative z-10">
+    <HeroItem client:load>
+      <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>{location}</span>
+      </div>
+    </HeroItem>
+    <HeroItem client:load>
+      <h1 class="text-display text-gray-900">{name}</h1>
+    </HeroItem>
+    <HeroItem client:load>
+      <p class="text-headline text-gray-600 mt-2">{headline}</p>
+    </HeroItem>
+    <HeroItem client:load>
+      <p class="text-body text-muted mt-4 max-w-2xl">{tagline}</p>
+    </HeroItem>
+    <HeroItem client:load>
+      <div class="flex flex-wrap gap-3 mt-6">
+        {ctaLinks.map((link) => (
+          <a
+            href={link.href}
+            target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+            rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d={iconPaths[link.icon] || iconPaths.mail} />
+            </svg>
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </HeroItem>
+  </HeroTextReveal>
 
   <div class="relative z-10">
     <ImpactDashboard client:visible stats={impactStats} />

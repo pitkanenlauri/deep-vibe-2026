@@ -7,6 +7,14 @@ import Footer from '../components/layout/Footer.astro';
 import MetaFooter from '../components/layout/MetaFooter.astro';
 import Timeline from '../components/experience/Timeline.astro';
 import Hero from '../components/hero/Hero.astro';
+import {
+	HighlightReveal,
+	CardGrid,
+	CardItem,
+	SkillsReveal,
+	SkillCategory,
+	RootsReveal
+} from '../components/animations/AnimatedSection';
 
 const { hero, highlight, experience, philosophy, skills, roots, meta } = profileData;
 ---
@@ -47,15 +55,17 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 
 			<!-- Highlight Section -->
 			<Section id="highlight" variant="highlight">
-				<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-					<div>
-						<h2 class="text-title text-primary-600">{highlight.title}</h2>
-						<p class="text-small text-muted mt-1">
-							{highlight.category} &middot; {highlight.context}
-						</p>
+				<HighlightReveal client:visible>
+					<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+						<div>
+							<h2 class="text-title text-primary-600">{highlight.title}</h2>
+							<p class="text-small text-muted mt-1">
+								{highlight.category} &middot; {highlight.context}
+							</p>
+						</div>
 					</div>
-				</div>
-				<p class="text-body mt-4">{highlight.description}</p>
+					<p class="text-body mt-4">{highlight.description}</p>
+				</HighlightReveal>
 			</Section>
 
 			<!-- Experience Section -->
@@ -65,26 +75,28 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 
 			<!-- Philosophy Section -->
 			<Section id="philosophy" title="Philosophy">
-				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<CardGrid client:visible className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{philosophy.map((item) => (
-						<article class="p-6 bg-white rounded-lg border border-gray-200">
-							<h3 class="text-title text-gray-900">{item.title}</h3>
-							<p class="text-body text-gray-700 mt-3">{item.belief}</p>
-							{item.source && (
-								<p class="text-small text-muted mt-4 italic">
-									— {item.source.author}, {item.source.work}
-								</p>
-							)}
-						</article>
+						<CardItem client:visible>
+							<article class="p-6 bg-white rounded-lg border border-gray-200 h-full">
+								<h3 class="text-title text-gray-900">{item.title}</h3>
+								<p class="text-body text-gray-700 mt-3">{item.belief}</p>
+								{item.source && (
+									<p class="text-small text-muted mt-4 italic">
+										— {item.source.author}, {item.source.work}
+									</p>
+								)}
+							</article>
+						</CardItem>
 					))}
-				</div>
+				</CardGrid>
 			</Section>
 
 			<!-- Skills Section -->
 			<Section id="skills" title="Skills">
-				<div class="space-y-8">
+				<SkillsReveal client:visible className="space-y-8">
 					{skills.map((category) => (
-						<div>
+						<SkillCategory client:visible>
 							<h3 class="text-title text-gray-700 mb-4">{category.category}</h3>
 							<div class="flex flex-wrap gap-3">
 								{category.skills.map((skill) => (
@@ -103,24 +115,26 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 									</div>
 								))}
 							</div>
-						</div>
+						</SkillCategory>
 					))}
-				</div>
+				</SkillsReveal>
 			</Section>
 
 			<!-- Roots Section -->
 			<Section id="roots" title="Roots">
-				<div class="p-6 bg-white rounded-lg border border-gray-200">
-					<p class="text-title text-gray-900">
-						{roots.degree}
-					</p>
-					<p class="text-body text-gray-600 mt-1">
-						{roots.institution} · {roots.focus}
-					</p>
-					<p class="text-body text-muted mt-4 italic">
-						"{roots.transferableInsight}"
-					</p>
-				</div>
+				<RootsReveal client:visible>
+					<div class="p-6 bg-white rounded-lg border border-gray-200">
+						<p class="text-title text-gray-900">
+							{roots.degree}
+						</p>
+						<p class="text-body text-gray-600 mt-1">
+							{roots.institution} · {roots.focus}
+						</p>
+						<p class="text-body text-muted mt-4 italic">
+							"{roots.transferableInsight}"
+						</p>
+					</div>
+				</RootsReveal>
 			</Section>
 		</main>
 
