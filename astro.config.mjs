@@ -88,10 +88,9 @@ function buildMetadataPlugin() {
 // https://astro.build/config
 export default defineConfig({
   // GitHub Pages deployment configuration
-  // Set SITE_URL env var for custom domain, or it defaults to GitHub Pages URL
-  site: process.env.SITE_URL || 'https://example.github.io',
-  // Set BASE_PATH for project pages (e.g., /deep-vibe-2026), leave empty for user pages
-  base: process.env.BASE_PATH || '',
+  site: 'https://pitkanenlauri.github.io',
+  // Base path for GitHub Pages project pages
+  base: '/deep-vibe-2026',
   integrations: [react()],
   vite: {
     plugins: [tailwindcss(), buildMetadataPlugin()],
