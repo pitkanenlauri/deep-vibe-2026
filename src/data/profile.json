@@ -102,7 +102,139 @@
           { "value": "€0.5M+", "label": "Revenue generated" }
         ]
       },
-      "tags": ["TypeScript", "Node.js", "RPA", "Architecture", "Testing"]
+      "tags": ["Python", "TypeScript", "Node.js", "RPA", "Architecture", "Testing"]
+    },
+    {
+      "id": "digia-developer",
+      "company": "Digia",
+      "role": "Software Developer",
+      "period": {
+        "start": "2020-06",
+        "end": "2021-12"
+      },
+      "employmentType": "full-time",
+      "careerLevel": "mid",
+      "summary": "Developed RPA automation solutions for enterprise clients. Built expertise in process automation and system integration.",
+      "deepDive": {
+        "context": "Transitioned from space industry to enterprise automation. Applied analytical skills from physics background to optimize business processes.",
+        "technicalHighlights": [
+          "Developed Python-based automation pipelines for document processing",
+          "Built integrations between legacy systems and modern cloud services",
+          "Created reusable automation components reducing development time by 40%"
+        ],
+        "metrics": [
+          { "value": "15+", "label": "Automation projects" },
+          { "value": "40%", "label": "Development time reduction" }
+        ]
+      },
+      "tags": ["Python", "RPA", "UiPath", "Integration", "Cloud"]
+    },
+    {
+      "id": "iceye-engineer",
+      "company": "ICEYE",
+      "role": "Software Engineer",
+      "period": {
+        "start": "2019-01",
+        "end": "2020-05"
+      },
+      "employmentType": "full-time",
+      "careerLevel": "mid",
+      "summary": "Developed satellite data processing systems at a cutting-edge Finnish space technology company.",
+      "deepDive": {
+        "context": "Applied physics and programming expertise to space technology. Worked on ground segment software for SAR satellite constellation.",
+        "technicalHighlights": [
+          "Built Python pipelines for satellite imagery processing",
+          "Developed algorithms for SAR data analysis and quality control",
+          "Contributed to ground station automation systems"
+        ],
+        "metrics": [
+          { "value": "TB+", "label": "Daily data processed" },
+          { "value": "24/7", "label": "System availability" }
+        ]
+      },
+      "tags": ["Python", "Satellite", "Data Processing", "Algorithms", "Space Tech"]
+    },
+    {
+      "id": "utu-researcher",
+      "company": "University of Turku",
+      "role": "Research Assistant",
+      "period": {
+        "start": "2017-09",
+        "end": "2018-12"
+      },
+      "employmentType": "part-time",
+      "careerLevel": "entry",
+      "isEarlyCareer": true,
+      "summary": "Conducted quantum optics research while completing M.Sc. in Physics. Developed computational models for optical systems.",
+      "deepDive": {
+        "context": "Combined graduate studies with hands-on research experience. Specialized in theoretical and computational physics.",
+        "technicalHighlights": [
+          "Developed Python simulations for quantum optical phenomena",
+          "Created data analysis pipelines for experimental physics data",
+          "Contributed to peer-reviewed publications in quantum optics"
+        ],
+        "metrics": [
+          { "value": "2", "label": "Research publications" },
+          { "value": "Python", "label": "Primary tool" }
+        ]
+      },
+      "tags": ["Python", "Research", "Quantum Optics", "Physics", "Data Analysis"]
+    },
+    {
+      "id": "utu-teaching",
+      "company": "University of Turku",
+      "role": "Teaching Assistant",
+      "period": {
+        "start": "2016-09",
+        "end": "2018-05"
+      },
+      "employmentType": "part-time",
+      "careerLevel": "entry",
+      "isEarlyCareer": true,
+      "summary": "Taught physics laboratory courses and tutored undergraduate students in mathematics and physics.",
+      "deepDive": {
+        "context": "Developed teaching skills while pursuing graduate studies. Responsible for lab sessions and student support.",
+        "technicalHighlights": [
+          "Led laboratory sessions for introductory physics courses",
+          "Developed teaching materials and exercise solutions",
+          "Mentored undergraduate students in research methods"
+        ],
+        "leadershipHighlights": [
+          "Consistently received positive student feedback",
+          "Developed effective teaching methodologies for complex concepts"
+        ],
+        "metrics": [
+          { "value": "200+", "label": "Students taught" },
+          { "value": "4.5/5", "label": "Student rating" }
+        ]
+      },
+      "tags": ["Teaching", "Physics", "Mentoring", "Communication"]
+    },
+    {
+      "id": "tut-assistant",
+      "company": "Tampere University of Technology",
+      "role": "Course Assistant",
+      "period": {
+        "start": "2014-01",
+        "end": "2016-05"
+      },
+      "employmentType": "part-time",
+      "careerLevel": "entry",
+      "isEarlyCareer": true,
+      "summary": "Assisted in programming and mathematics courses while completing CS/Math studies.",
+      "deepDive": {
+        "context": "Early exposure to teaching and technical communication. Helped students master programming fundamentals.",
+        "technicalHighlights": [
+          "Tutored students in Python, Java, and C programming",
+          "Assisted in discrete mathematics and algorithms courses",
+          "Developed automated grading scripts for programming assignments"
+        ],
+        "metrics": [
+          { "value": "150+", "label": "Students assisted" },
+          { "value": "3", "label": "Courses supported" }
+        ]
+      },
+      "tags": ["Python", "Java", "Teaching", "Algorithms", "Mathematics"]
     }
   ],
   "philosophy": [
@@ -128,10 +260,11 @@
     {
       "category": "Technical",
       "skills": [
+        { "name": "Python", "level": 5, "highlight": true },
         { "name": "TypeScript", "level": 5, "highlight": true },
-        { "name": "Node.js", "level": 5, "highlight": true },
+        { "name": "Node.js", "level": 5, "highlight": false },
         { "name": "System Architecture", "level": 4, "highlight": true },
-        { "name": "AI/ML Integration", "level": 4, "highlight": false },
+        { "name": "AI/ML Integration", "level": 4, "highlight": true },
         { "name": "Testing & QA", "level": 5, "highlight": false }
       ]
     },
@@ -140,16 +273,19 @@
       "skills": [
         { "name": "Team Building", "level": 5, "highlight": true },
         { "name": "Technical Mentoring", "level": 5, "highlight": true },
-        { "name": "Project Management", "level": 4, "highlight": false },
-        { "name": "Stakeholder Communication", "level": 4, "highlight": false }
+        { "name": "Strategic Planning", "level": 4, "highlight": true },
+        { "name": "Stakeholder Communication", "level": 4, "highlight": false },
+        { "name": "Agile Leadership", "level": 4, "highlight": false }
       ]
     },
     {
       "category": "Domain",
       "skills": [
         { "name": "Process Automation", "level": 5, "highlight": true },
+        { "name": "AI Strategy", "level": 4, "highlight": true },
         { "name": "Enterprise Integration", "level": 4, "highlight": false },
-        { "name": "Public Sector", "level": 4, "highlight": false }
+        { "name": "Public Sector", "level": 4, "highlight": false },
+        { "name": "Space Technology", "level": 3, "highlight": false }
       ]
     }
   ],
@@ -167,27 +303,31 @@
       "focus": "Quantum Optics",
       "type": "master",
       "period": {
-        "start": "2015-09",
-        "end": "2018-05"
+        "start": "2017-09",
+        "end": "2022-05"
       },
       "transferableInsight": "Physics taught me to find simple models for complex phenomena. That skill transfers directly to software architecture and organizational design.",
       "highlights": [
         "Specialized in quantum optics and laser physics",
-        "Developed computational models for optical systems"
+        "Developed computational models for optical systems",
+        "Published research on quantum phenomena"
       ]
     },
     {
-      "id": "bsc-physics",
-      "degree": "B.Sc. Physics",
-      "institution": "University of Turku",
-      "focus": "Physics",
+      "id": "bsc-cs-math",
+      "degree": "B.Sc. Computer Science / Mathematics",
+      "institution": "Tampere University of Technology",
+      "focus": "Computer Science & Mathematical Foundations",
       "type": "bachelor",
       "period": {
         "start": "2012-09",
-        "end": "2015-05"
+        "end": "2016-05"
       },
+      "transferableInsight": "Built the programming foundations and mathematical rigor that would later prove essential in both physics research and software engineering.",
       "highlights": [
-        "Foundation in mathematical physics and computational methods"
+        "Strong foundation in algorithms and data structures",
+        "Mathematical analysis and discrete mathematics",
+        "Programming in Python, Java, and C"
       ]
     }
   ],
@@ -208,15 +348,33 @@
         "Technical interview preparation"
       ],
       "tags": ["Mentoring", "Career Development", "Education"]
+    },
+    {
+      "id": "physics-outreach",
+      "organization": "Turku Science Festival",
+      "role": "Science Communicator",
+      "period": {
+        "start": "2017-06",
+        "end": "2019-08"
+      },
+      "description": "Presented physics demonstrations and workshops to engage public interest in science.",
+      "impact": "Reached 500+ participants across multiple events",
+      "highlights": [
+        "Designed interactive quantum physics demonstrations",
+        "Led hands-on workshops for school students",
+        "Contributed to public understanding of science"
+      ],
+      "tags": ["Science Communication", "Physics", "Education", "Public Outreach"]
     }
   ],
   "meta": {
-    "buildTimestamp": "2026-01-25T12:00:00Z",
+    "buildTimestamp": "2026-01-25T21:00:00Z",
     "agents": [
       { "name": "Architect", "contribution": "Foundation, schemas, project setup" },
       { "name": "Scaffolder", "contribution": "Layout and structure" },
       { "name": "Visualizer", "contribution": "Hero and animations" },
-      { "name": "Reporter", "contribution": "Meta footer and build info" }
+      { "name": "Reporter", "contribution": "Meta footer and build info" },
+      { "name": "Furiosa", "contribution": "Full LinkedIn profile migration" }
     ],
     "bundleSize": "< 100KB",
     "sourceUrl": "https://github.com/pitkanenlauri/deep-vibe-2026"
