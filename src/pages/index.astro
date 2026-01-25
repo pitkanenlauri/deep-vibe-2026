@@ -54,27 +54,28 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 			</Section>
 
 			<!-- Highlight Section -->
-			<Section id="highlight" variant="highlight">
+			<Section id="highlight" variant="highlight" class="accent-bar pl-6">
 				<HighlightReveal client:visible>
 					<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
 						<div>
-							<h2 class="text-title text-primary-600">{highlight.title}</h2>
+							<h2 class="text-title gradient-text-vibrant">{highlight.title}</h2>
 							<p class="text-small text-muted mt-1">
-								{highlight.category} &middot; {highlight.context}
+								<span class="tag-primary mr-2">{highlight.category}</span>
+								{highlight.context}
 							</p>
 						</div>
 					</div>
-					<p class="text-body mt-4">{highlight.description}</p>
+					<p class="text-body mt-4 text-gray-700">{highlight.description}</p>
 				</HighlightReveal>
 			</Section>
 
 			<!-- Experience Section -->
-			<Section id="experience" title="Experience">
+			<Section id="experience" title="Experience" variant="accent">
 				<Timeline experiences={experience} />
 			</Section>
 
 			<!-- Philosophy Section -->
-			<Section id="philosophy" title="Philosophy">
+			<Section id="philosophy" title="Philosophy" variant="gradient">
 				<CardGrid client:visible className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{philosophy.map((item) => (
 						<CardItem client:visible>

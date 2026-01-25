@@ -2,16 +2,18 @@
 interface Props {
   id: string;
   title?: string;
-  variant?: 'default' | 'highlight' | 'alternate';
+  variant?: 'default' | 'highlight' | 'alternate' | 'accent' | 'gradient';
   class?: string;
 }
 
 const { id, title, variant = 'default', class: className = '' } = Astro.props;
 
 const variantClasses = {
-  default: '',
+  default: 'section-default',
   highlight: 'bg-white rounded-lg shadow-sm border border-gray-200',
   alternate: 'bg-gray-100',
+  accent: 'section-accent',
+  gradient: 'section-gradient',
 };
 ---
 
@@ -26,7 +28,7 @@ const variantClasses = {
   ]}
 >
   {title && (
-    <h2 class="text-headline text-gray-900 mb-6 md:mb-8">{title}</h2>
+    <h2 class="text-headline gradient-text mb-6 md:mb-8">{title}</h2>
   )}
   <slot />
 </section>

@@ -6,9 +6,29 @@
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
-  /* Primary - Deep, trustworthy blue */
-  --color-primary-500: #2563eb;
-  --color-primary-600: #1d4ed8;
+  /* Primary - Vibrant blue spectrum */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  /* Purple - For gradient depth */
+  --color-purple-50: #faf5ff;
+  --color-purple-100: #f3e8ff;
+  --color-purple-200: #e9d5ff;
+  --color-purple-300: #d8b4fe;
+  --color-purple-400: #c084fc;
+  --color-purple-500: #a855f7;
+  --color-purple-600: #9333ea;
+  --color-purple-700: #7c3aed;
+  --color-purple-800: #6b21a8;
+  --color-purple-900: #581c87;
 
   /* Neutral - Warm grays (not cold) */
   --color-gray-50: #fafaf9;
@@ -22,15 +42,22 @@
   --color-gray-800: #292524;
   --color-gray-900: #1c1917;
 
-  /* Accent - Subtle warmth (sparingly, for CTAs) */
+  /* Accent - Warm amber for CTAs */
   --color-accent: #f59e0b;
   --color-accent-dark: #d97706;
+  --color-accent-light: #fbbf24;
 
   /* Semantic */
   --color-success: #10b981;
-  --color-text: var(--color-gray-800);
-  --color-text-muted: #78716c;
+  --color-text: var(--color-gray-900);
+  --color-text-muted: #57534e;
   --color-background: var(--color-gray-50);
+
+  /* Section Backgrounds */
+  --color-section-default: var(--color-gray-50);
+  --color-section-subtle: #f8fafc;
+  --color-section-contrast: #ffffff;
+  --color-section-accent: var(--color-primary-50);
 
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -58,6 +85,92 @@
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Gradient Utilities
+   ═══════════════════════════════════════════════════════════ */
+
+/* Primary blue-purple gradients */
+.gradient-hero {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-purple-600) 100%);
+}
+
+.gradient-hero-subtle {
+  background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-purple-50) 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-purple-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-vibrant {
+  background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-purple-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Accent gradients */
+.gradient-accent {
+  background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-accent) 100%);
+}
+
+.gradient-cta {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-purple-700) 100%);
+  color: white;
+}
+
+.gradient-cta:hover {
+  background: linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-purple-800) 100%);
+}
+
+/* Section background variations */
+.section-default {
+  background-color: var(--color-section-default);
+}
+
+.section-subtle {
+  background-color: var(--color-section-subtle);
+}
+
+.section-contrast {
+  background-color: var(--color-section-contrast);
+}
+
+.section-accent {
+  background-color: var(--color-section-accent);
+}
+
+.section-gradient {
+  background: linear-gradient(180deg, var(--color-gray-50) 0%, var(--color-primary-50) 100%);
+}
+
+.section-gradient-reverse {
+  background: linear-gradient(180deg, var(--color-primary-50) 0%, var(--color-gray-50) 100%);
+}
+
+/* Decorative gradient border */
+.gradient-border {
+  position: relative;
+  background: white;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-purple-500) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -165,6 +278,130 @@ blockquote cite {
   .text-display {
     font-size: 3.5rem;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Enhanced Color Utilities
+   ═══════════════════════════════════════════════════════════ */
+
+/* Primary color text utilities */
+.text-primary {
+  color: var(--color-primary-600);
+}
+
+.text-primary-dark {
+  color: var(--color-primary-700);
+}
+
+.text-primary-light {
+  color: var(--color-primary-500);
+}
+
+/* Primary background utilities */
+.bg-primary {
+  background-color: var(--color-primary-600);
+}
+
+.bg-primary-subtle {
+  background-color: var(--color-primary-50);
+}
+
+.bg-primary-light {
+  background-color: var(--color-primary-100);
+}
+
+/* Button variants */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-purple-600) 100%);
+  border: none;
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-fast) ease-out;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-purple-700) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary-700);
+  background-color: white;
+  border: 1px solid var(--color-primary-200);
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-fast) ease-out;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary-50);
+  border-color: var(--color-primary-400);
+}
+
+/* Card enhancements */
+.card-elevated {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-normal) ease-out;
+}
+
+.card-elevated:hover {
+  border-color: var(--color-primary-200);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+/* Highlight accent bar */
+.accent-bar {
+  position: relative;
+}
+
+.accent-bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--color-primary-500) 0%, var(--color-purple-500) 100%);
+  border-radius: 2px;
+}
+
+/* Tag/badge variants */
+.tag-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-primary-700);
+  background-color: var(--color-primary-100);
+  border-radius: 9999px;
+}
+
+.tag-purple {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-purple-700);
+  background-color: var(--color-purple-100);
+  border-radius: 9999px;
 }
 
 /* ═══════════════════════════════════════════════════════════
