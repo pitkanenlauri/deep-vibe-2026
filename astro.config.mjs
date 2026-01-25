@@ -48,7 +48,7 @@ function buildMetadataPlugin() {
         },
       };
     },
-    generateBundle(_, bundle) {
+    generateBundle(/** @type {any} */ _, /** @type {Record<string, any>} */ bundle) {
       // Calculate total bundle size from all chunks and assets
       let totalSize = 0;
       for (const chunk of Object.values(bundle)) {

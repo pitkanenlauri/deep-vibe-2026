@@ -29,6 +29,14 @@ pnpm-debug.log*
 # build stats cache
 .build-stats.json
 
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Lighthouse CI
+.lighthouseci/
+
 # Gas Town (added by gt)
 .runtime/
 .claude/
