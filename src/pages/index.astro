@@ -8,6 +8,7 @@ import Section from '../components/layout/Section.astro';
 import Footer from '../components/layout/Footer.astro';
 import MetaFooter from '../components/layout/MetaFooter.astro';
 import Timeline from '../components/experience/Timeline.astro';
+import Hero from '../components/hero/Hero.astro';
 
 const { hero, highlight, experience, philosophy, skills, roots, meta } = profileData;
 ---
@@ -36,41 +37,14 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 		<main class="max-w-4xl mx-auto px-4">
 			<!-- Hero Section -->
 			<Section id="hero" class="pt-8 md:pt-12">
-				<div class="space-y-4">
-					<h1 class="text-display text-gray-900">{hero.name}</h1>
-					<p class="text-headline text-gray-600">{hero.headline}</p>
-					<p class="text-body text-muted max-w-2xl">{hero.tagline}</p>
-
-<<<<<<< HEAD
-					<!-- Impact Stats Grid -->
-					<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8 md:mt-12">
-						{hero.impactStats.map((stat) => (
-							<div class="p-4 bg-white rounded-lg border border-gray-200 text-center">
-								<div class="text-headline md:text-display text-primary-600 font-bold">
-									{stat.value}
-								</div>
-								<div class="text-small text-gray-500 mt-1">{stat.unit}</div>
-								<div class="text-small font-medium text-gray-700 mt-2">
-									{stat.label}
-								</div>
-							</div>
-						))}
-					</div>
-
-					<!-- CTA Links -->
-					<div class="flex flex-wrap gap-4 mt-8">
-						{hero.ctaLinks.map((link) => (
-							<a
-								href={link.href}
-								target={link.href.startsWith('mailto:') ? undefined : '_blank'}
-								rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-								class="inline-flex items-center gap-2 px-4 py-2 text-small font-medium text-primary-600 bg-white border border-gray-200 rounded-md hover:border-primary-500 hover:bg-primary-500/5 transition-colors duration-fast"
-							>
-								{link.label}
-							</a>
-						))}
-					</div>
-				</div>
+				<Hero
+					name={hero.name}
+					headline={hero.headline}
+					tagline={hero.tagline}
+					location={hero.location}
+					impactStats={hero.impactStats}
+					ctaLinks={hero.ctaLinks}
+				/>
 			</Section>
 
 			<!-- Highlight Section -->
