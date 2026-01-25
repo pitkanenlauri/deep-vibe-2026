@@ -26,6 +26,9 @@ pnpm-debug.log*
 # gastown
 .beads/
 
+# build stats cache
+.build-stats.json
+
 # Gas Town (added by gt)
 .runtime/
 .claude/

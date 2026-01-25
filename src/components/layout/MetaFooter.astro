@@ -1,0 +1,143 @@
+---
+/**
+ * MetaFooter Component
+ * Displays build metadata, Gastown agent credits, and source link
+ * "The How This Was Built Story" - builds trust through transparency
+ */
+import profileData from '../../data/profile.json';
+import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
+
+const { meta } = profileData;
+
+// Build-time injected values via Vite define
+const buildTimestamp = import.meta.env.BUILD_TIMESTAMP || meta.buildTimestamp;
+const gitCommit = import.meta.env.GIT_COMMIT || 'dev';
+
+// Read cached bundle size from previous build (calculated by Vite plugin)
+function getCachedBundleSize(): string {
+  try {
+    const statsPath = join(process.cwd(), '.build-stats.json');
+    if (existsSync(statsPath)) {
+      const stats = JSON.parse(readFileSync(statsPath, 'utf-8'));
+      if (stats.bundleSize) {
+        return stats.bundleSize;
+      }
+    }
+  } catch {
+    // Fall back to default
+  }
+  return meta.bundleSize;
+}
+
+const bundleSize = getCachedBundleSize();
+
+// Format the build timestamp for display
+const buildDate = new Date(buildTimestamp);
+const formattedDate = buildDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+const formattedTime = buildDate.toLocaleTimeString('en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZoneName: 'short',
+});
+
+// Use the actual GitHub repo URL
+const sourceUrl = 'https://github.com/pitkanenlauri/deep-vibe-2026';
+---
+
+<footer class="mt-24 border-t border-gray-200 bg-gray-100/50">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Section Header -->
+    <div class="text-center mb-8">
+      <h2 class="text-small font-semibold text-gray-500 uppercase tracking-wider">
+        How This Was Built
+      </h2>
+      <p class="text-small text-muted mt-1">
+        AI-native development with transparency
+      </p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-3">
+      <!-- Build Metadata -->
+      <div class="text-center md:text-left">
+        <h3 class="text-small font-semibold text-gray-700 mb-3">Build Info</h3>
+        <dl class="space-y-2 text-small">
+          <div class="flex flex-col md:flex-row md:gap-2">
+            <dt class="text-muted">Last built:</dt>
+            <dd class="font-mono text-gray-700">{formattedDate}</dd>
+          </div>
+          <div class="flex flex-col md:flex-row md:gap-2">
+            <dt class="text-muted">Time:</dt>
+            <dd class="font-mono text-gray-700">{formattedTime}</dd>
+          </div>
+          <div class="flex flex-col md:flex-row md:gap-2">
+            <dt class="text-muted">Bundle size:</dt>
+            <dd class="font-mono text-gray-700">{bundleSize}</dd>
+          </div>
+          {gitCommit !== 'dev' && (
+            <div class="flex flex-col md:flex-row md:gap-2">
+              <dt class="text-muted">Commit:</dt>
+              <dd class="font-mono text-gray-700">{gitCommit.slice(0, 7)}</dd>
+            </div>
+          )}
+        </dl>
+      </div>
+
+      <!-- Gastown Agent Credits -->
+      <div class="text-center md:text-left">
+        <h3 class="text-small font-semibold text-gray-700 mb-3">Built by Gastown Agents</h3>
+        <ul class="space-y-2 text-small">
+          {meta.agents.map((agent: { name: string; contribution: string }) => (
+            <li class="flex flex-col md:flex-row md:gap-2">
+              <span class="font-medium text-primary-600">{agent.name}</span>
+              <span class="text-muted">{agent.contribution}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Source & Links -->
+      <div class="text-center md:text-left">
+        <h3 class="text-small font-semibold text-gray-700 mb-3">Source</h3>
+        <div class="space-y-3">
+          <a
+            href={sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-small text-primary-600 hover:text-primary-700 transition-colors duration-fast"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            View Source on GitHub
+          </a>
+          <p class="text-small text-muted">
+            Open source. Fork it, learn from it, improve it.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Note -->
+    <div class="mt-10 pt-6 border-t border-gray-200 text-center">
+      <p class="text-small text-muted">
+        Built with <a href="https://astro.build" class="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">Astro</a>,
+        <a href="https://tailwindcss.com" class="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">Tailwind CSS</a>,
+        and AI-assisted development.
+      </p>
+    </div>
+  </div>
+</footer>

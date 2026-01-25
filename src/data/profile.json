@@ -160,9 +160,10 @@
     "agents": [
       { "name": "Architect", "contribution": "Foundation, schemas, project setup" },
       { "name": "Scaffolder", "contribution": "Layout and structure" },
-      { "name": "Visualizer", "contribution": "Hero and animations" }
+      { "name": "Visualizer", "contribution": "Hero and animations" },
+      { "name": "Reporter", "contribution": "Meta footer and build info" }
     ],
     "bundleSize": "< 100KB",
-    "sourceUrl": "https://github.com/lauripitkanen/portfolio"
+    "sourceUrl": "https://github.com/pitkanenlauri/deep-vibe-2026"
   }
 }
