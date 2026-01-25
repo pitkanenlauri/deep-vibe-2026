@@ -1,0 +1,98 @@
+---
+import TimelineItem from './TimelineItem.tsx';
+
+interface Metric {
+  value: string;
+  label: string;
+}
+
+interface Experience {
+  id: string;
+  company: string;
+  role: string;
+  period: {
+    start: string;
+    end: string | null;
+  };
+  summary: string;
+  deepDive: {
+    context: string;
+    technicalHighlights: string[];
+    leadershipHighlights?: string[];
+    metrics: Metric[];
+  };
+  tags: string[];
+}
+
+interface Props {
+  experiences: Experience[];
+}
+
+const { experiences } = Astro.props;
+---
+
+<section class="timeline" aria-label="Professional Experience">
+  <h2 class="text-headline text-gray-900 mb-8">Experience</h2>
+  <ol class="timeline-list" role="list" aria-label="Career timeline">
+    {experiences.map((experience, index) => (
+      <li class="timeline-entry" data-index={index}>
+        <TimelineItem experience={experience} client:visible />
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+  }
+
+  .timeline-entry {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .timeline-entry:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Timeline connector line */
+  .timeline-entry::before {
+    content: '';
+    position: absolute;
+    left: 0.375rem;
+    top: 0.5rem;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-gray-200);
+  }
+
+  .timeline-entry:last-child::before {
+    display: none;
+  }
+
+  /* Timeline dot */
+  .timeline-entry::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.375rem;
+    width: 0.875rem;
+    height: 0.875rem;
+    background-color: var(--color-primary-500);
+    border-radius: 50%;
+    border: 2px solid var(--color-background);
+  }
+
+  /* Print styles - show full timeline */
+  @media print {
+    .timeline-entry {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+</style>

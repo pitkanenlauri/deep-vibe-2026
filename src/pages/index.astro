@@ -7,6 +7,7 @@ import Header from '../components/layout/Header.astro';
 import Section from '../components/layout/Section.astro';
 import Footer from '../components/layout/Footer.astro';
 import MetaFooter from '../components/layout/MetaFooter.astro';
+import Timeline from '../components/experience/Timeline.astro';
 
 const { hero, highlight, experience, philosophy, skills, roots, meta } = profileData;
 ---
@@ -40,6 +41,7 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 					<p class="text-headline text-gray-600">{hero.headline}</p>
 					<p class="text-body text-muted max-w-2xl">{hero.tagline}</p>
 
+<<<<<<< HEAD
 					<!-- Impact Stats Grid -->
 					<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8 md:mt-12">
 						{hero.impactStats.map((stat) => (
@@ -86,35 +88,7 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 
 			<!-- Experience Section -->
 			<Section id="experience" title="Experience">
-				<div class="space-y-8">
-					{experience.map((exp) => (
-						<article class="relative pl-6 border-l-2 border-gray-200">
-							<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary-500 border-4 border-gray-50" />
-
-							<header class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-								<div>
-									<h3 class="text-title text-gray-900">{exp.role}</h3>
-									<p class="text-body text-gray-600">{exp.company}</p>
-								</div>
-								<time class="text-small text-muted whitespace-nowrap">
-									{exp.period.start.slice(0, 4)} – {exp.period.end ? exp.period.end.slice(0, 4) : 'Present'}
-								</time>
-							</header>
-
-							<p class="text-body text-gray-700 mt-3">{exp.summary}</p>
-
-							{exp.tags && (
-								<div class="flex flex-wrap gap-2 mt-4">
-									{exp.tags.map((tag: string) => (
-										<span class="px-2 py-1 text-small bg-gray-100 text-gray-600 rounded">
-											{tag}
-										</span>
-									))}
-								</div>
-							)}
-						</article>
-					))}
-				</div>
+				<Timeline experiences={experience} />
 			</Section>
 
 			<!-- Philosophy Section -->

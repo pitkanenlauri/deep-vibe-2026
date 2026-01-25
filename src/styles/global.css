@@ -166,3 +166,88 @@ blockquote cite {
     font-size: 3.5rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Print Styles
+   ═══════════════════════════════════════════════════════════ */
+
+@media print {
+  /* Reset to readable print layout */
+  body {
+    font-size: 11pt;
+    line-height: 1.4;
+    color: #000;
+    background: #fff;
+  }
+
+  /* Remove decorative shadows and borders for print */
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg {
+    box-shadow: none !important;
+  }
+
+  /* Ensure timeline items break properly */
+  .timeline-item,
+  .timeline-entry {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Show all deep-dive content in print */
+  .deep-dive {
+    display: block !important;
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+
+  /* Hide expand/collapse buttons in print */
+  button[aria-expanded] svg,
+  .timeline-item button svg {
+    display: none !important;
+  }
+
+  /* Ensure good contrast */
+  .text-muted {
+    color: #444 !important;
+  }
+
+  /* Remove background colors that waste ink */
+  .bg-gray-50,
+  .bg-gray-100 {
+    background-color: transparent !important;
+  }
+
+  /* Keep metrics visible */
+  .deep-dive .bg-gray-50 {
+    border: 1px solid #ccc;
+    background-color: transparent !important;
+  }
+
+  /* Prevent orphan headings */
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Hide navigation and non-essential elements */
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure links are visible in print */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  /* But not for internal links or mailto */
+  a[href^="#"]::after,
+  a[href^="mailto"]::after,
+  a[href^="tel"]::after {
+    content: "";
+  }
+}
