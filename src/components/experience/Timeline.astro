@@ -1,5 +1,6 @@
 ---
 import TimelineItem from './TimelineItem.tsx';
+import TimelineConnector from './TimelineConnector.tsx';
 
 interface Metric {
   value: string;
@@ -22,6 +23,7 @@ interface Experience {
     metrics: Metric[];
   };
   tags: string[];
+  careerLevel?: string;
 }
 
 interface Props {
@@ -29,16 +31,61 @@ interface Props {
 }
 
 const { experiences } = Astro.props;
+
+// Career level hierarchy for promotion detection
+const careerLevels: Record<string, number> = {
+  'intern': 1,
+  'junior': 2,
+  'mid': 3,
+  'senior': 4,
+  'lead': 5,
+  'principal': 6,
+  'director': 7,
+  'vp': 8,
+  'executive': 9
+};
+
+// Detect if this is a promotion from the next (older) role
+function isPromotion(current: Experience, next: Experience | undefined): boolean {
+  if (!next) return false;
+  // Must be at the same company
+  if (current.company !== next.company) return false;
+  // Check if career level increased
+  const currentLevel = careerLevels[current.careerLevel || ''] || 0;
+  const nextLevel = careerLevels[next.careerLevel || ''] || 0;
+  return currentLevel > nextLevel && currentLevel > 0 && nextLevel > 0;
+}
 ---
 
 <section class="timeline" aria-label="Professional Experience">
   <h2 class="text-headline text-gray-900 mb-8">Experience</h2>
   <ol class="timeline-list" role="list" aria-label="Career timeline">
-    {experiences.map((experience, index) => (
-      <li class="timeline-entry" data-index={index}>
-        <TimelineItem experience={experience} index={index} client:visible />
-      </li>
-    ))}
+    {experiences.map((experience, index) => {
+      const nextExperience = experiences[index + 1];
+      const promoted = isPromotion(experience, nextExperience);
+      const isLast = index === experiences.length - 1;
+
+      return (
+        <li class="timeline-entry" data-index={index}>
+          <div class="timeline-connector-wrapper">
+            <TimelineConnector
+              isPromotion={promoted}
+              isLast={isLast}
+              index={index}
+              client:visible
+            />
+          </div>
+          <div class="timeline-content">
+            <TimelineItem
+              experience={experience}
+              index={index}
+              isPromotion={promoted}
+              client:visible
+            />
+          </div>
+        </li>
+      );
+    })}
   </ol>
 </section>
 
@@ -52,7 +99,9 @@ const { experiences } = Astro.props;
 
   .timeline-entry {
     position: relative;
-    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 1rem;
     padding-bottom: 2rem;
   }
 
@@ -60,32 +109,71 @@ const { experiences } = Astro.props;
     padding-bottom: 0;
   }
 
-  /* Timeline connector line */
-  .timeline-entry::before {
-    content: '';
-    position: absolute;
-    left: 0.375rem;
-    top: 0.5rem;
-    bottom: 0;
-    width: 2px;
-    background-color: var(--color-gray-200);
+  .timeline-connector-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .timeline-entry:last-child::before {
-    display: none;
+  .timeline-content {
+    flex: 1;
+    min-width: 0;
   }
 
-  /* Timeline dot */
-  .timeline-entry::after {
-    content: '';
+  /* TimelineConnector component styles */
+  :global(.timeline-connector) {
+    position: relative;
+    height: 100%;
+    min-height: 100px;
+  }
+
+  :global(.timeline-connector--last) {
+    height: auto;
+    min-height: auto;
+  }
+
+  :global(.timeline-svg) {
     position: absolute;
+    top: 0;
     left: 0;
-    top: 0.375rem;
-    width: 0.875rem;
-    height: 0.875rem;
-    background-color: var(--color-primary-500);
-    border-radius: 50%;
-    border: 2px solid var(--color-background);
+    width: 24px;
+    height: 100%;
+  }
+
+  :global(.timeline-dot) {
+    position: relative;
+    z-index: 1;
+  }
+
+  :global(.promotion-badge) {
+    position: absolute;
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, var(--color-success-50) 0%, var(--color-success-100) 100%);
+    border: 1px solid var(--color-success-200);
+    border-radius: 9999px;
+    padding: 0.125rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  :global(.promotion-badge__text) {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-success-700);
+  }
+
+  /* Success color custom properties (add to global if not present) */
+  :global(:root) {
+    --color-success-50: #f0fdf4;
+    --color-success-100: #dcfce7;
+    --color-success-200: #bbf7d0;
+    --color-success-300: #86efac;
+    --color-success-500: #22c55e;
+    --color-success-700: #15803d;
   }
 
   /* Print styles - show full timeline */
@@ -93,6 +181,22 @@ const { experiences } = Astro.props;
     .timeline-entry {
       break-inside: avoid;
       page-break-inside: avoid;
+    }
+
+    :global(.promotion-badge) {
+      display: none;
+    }
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 640px) {
+    .timeline-entry {
+      grid-template-columns: 20px 1fr;
+      gap: 0.75rem;
+    }
+
+    :global(.promotion-badge) {
+      display: none;
     }
   }
 </style>
