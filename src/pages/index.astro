@@ -1,8 +1,9 @@
 ---
 import '../styles/global.css';
 import profileData from '../data/profile.json';
+import SkillsChart from '../components/skills/SkillsChart';
 
-const { hero, highlight, roots } = profileData;
+const { hero, highlight, skills, roots } = profileData;
 ---
 
 <html lang="en">
@@ -29,6 +30,12 @@ const { hero, highlight, roots } = profileData;
 				<h2 class="text-title text-primary-600">{highlight.title}</h2>
 				<p class="text-small text-muted mt-1">{highlight.category} &middot; {highlight.context}</p>
 				<p class="text-body mt-3">{highlight.description}</p>
+			</section>
+
+			<!-- Skills Section -->
+			<section class="mb-16">
+				<h2 class="text-headline text-gray-900 mb-8">Skills & Expertise</h2>
+				<SkillsChart client:idle skills={skills} />
 			</section>
 
 			<!-- Roots Section Placeholder -->
