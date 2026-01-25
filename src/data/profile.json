@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "name": "Lauri Pitkänen",
+    "headline": "Engineering Manager @ Digia | AI & Automation",
+    "tagline": "I turn complex automation challenges into elegant, reliable systems—and help engineers do the best work of their careers.",
+    "location": "Finland",
+    "impactStats": [
+      {
+        "id": "time-saved",
+        "value": "270+",
+        "unit": "hours/month",
+        "label": "Time Saved",
+        "detail": "PAM unemployment benefit automation"
+      },
+      {
+        "id": "reliability",
+        "value": "99.99%",
+        "unit": "uptime",
+        "label": "System Reliability",
+        "detail": "70,000+ applications processed annually"
+      },
+      {
+        "id": "revenue",
+        "value": "€0.5M+",
+        "unit": "revenue",
+        "label": "Business Impact",
+        "detail": "Flagship client win → 30+ follow-up projects"
+      },
+      {
+        "id": "team",
+        "value": "16",
+        "unit": "engineers",
+        "label": "Team Size",
+        "detail": "3 development teams, Trust score 4.8/5"
+      }
+    ],
+    "ctaLinks": [
+      { "label": "LinkedIn", "href": "https://linkedin.com/in/lauripitkanen", "icon": "linkedin" },
+      { "label": "GitHub", "href": "https://github.com/lauripitkanen", "icon": "github" },
+      { "label": "Email", "href": "mailto:lauri@example.com", "icon": "mail" }
+    ]
+  },
+  "highlight": {
+    "title": "Digia Award 2024",
+    "category": "Senior Trainee",
+    "context": "1 of 6 recipients from ~1,500 employees",
+    "description": "Recognized for continuous learning and embodying company values in leadership & software engineering."
+  },
+  "experience": [
+    {
+      "id": "digia-em",
+      "company": "Digia",
+      "role": "Engineering Manager",
+      "period": {
+        "start": "2024-01",
+        "end": null
+      },
+      "summary": "Leading 16 engineers across 3 development teams in AI & Automation. Building high-trust teams that deliver complex enterprise automation solutions.",
+      "deepDive": {
+        "context": "Promoted to lead the AI & Automation unit after demonstrating technical excellence and leadership potential. Responsible for team performance, technical direction, and client relationships.",
+        "technicalHighlights": [
+          "Architected PAM unemployment benefit system processing 70k+ applications annually",
+          "Established coding standards and review practices across all teams",
+          "Introduced AI-assisted development workflows improving team velocity"
+        ],
+        "leadershipHighlights": [
+          "Built and maintained team trust score of 4.8/5",
+          "Mentored 4 engineers to senior positions",
+          "Reduced team turnover to near-zero through engagement initiatives"
+        ],
+        "metrics": [
+          { "value": "16", "label": "Engineers managed" },
+          { "value": "3", "label": "Teams led" },
+          { "value": "4.8/5", "label": "Trust score" }
+        ]
+      },
+      "tags": ["Leadership", "AI", "Automation", "Team Building", "Architecture"]
+    },
+    {
+      "id": "digia-senior",
+      "company": "Digia",
+      "role": "Senior Software Developer",
+      "period": {
+        "start": "2022-01",
+        "end": "2023-12"
+      },
+      "summary": "Led technical delivery of flagship automation projects. Established best practices that became team standards.",
+      "deepDive": {
+        "context": "Joined as a senior developer and quickly became the technical lead for critical client projects. Focused on building reliable, maintainable automation systems.",
+        "technicalHighlights": [
+          "Designed and implemented high-availability architecture achieving 99.99% uptime",
+          "Built reusable automation framework adopted across multiple projects",
+          "Introduced comprehensive testing practices reducing production incidents by 80%"
+        ],
+        "metrics": [
+          { "value": "99.99%", "label": "System uptime" },
+          { "value": "270+", "label": "Hours saved monthly" },
+          { "value": "€0.5M+", "label": "Revenue generated" }
+        ]
+      },
+      "tags": ["TypeScript", "Node.js", "RPA", "Architecture", "Testing"]
+    }
+  ],
+  "philosophy": [
+    {
+      "id": "complexity",
+      "title": "Complexity is the Enemy",
+      "belief": "Every line of code, every process, every meeting should justify its existence. Simplicity isn't about doing less—it's about enabling more.",
+      "source": { "author": "John Ousterhout", "work": "A Philosophy of Software Design" }
+    },
+    {
+      "id": "impact",
+      "title": "Impact Over Activity",
+      "belief": "I measure success by outcomes: hours saved, reliability achieved, confidence restored. Activity without impact is just motion.",
+      "source": { "author": "Dave Farley", "work": "Modern Software Engineering" }
+    },
+    {
+      "id": "craft",
+      "title": "Quality as a Daily Practice",
+      "belief": "Quality isn't a phase or a gate—it's how you write every function, run every meeting, give every code review. Small disciplines compound."
+    }
+  ],
+  "skills": [
+    {
+      "category": "Technical",
+      "skills": [
+        { "name": "TypeScript", "level": 5, "highlight": true },
+        { "name": "Node.js", "level": 5, "highlight": true },
+        { "name": "System Architecture", "level": 4, "highlight": true },
+        { "name": "AI/ML Integration", "level": 4, "highlight": false },
+        { "name": "Testing & QA", "level": 5, "highlight": false }
+      ]
+    },
+    {
+      "category": "Leadership",
+      "skills": [
+        { "name": "Team Building", "level": 5, "highlight": true },
+        { "name": "Technical Mentoring", "level": 5, "highlight": true },
+        { "name": "Project Management", "level": 4, "highlight": false },
+        { "name": "Stakeholder Communication", "level": 4, "highlight": false }
+      ]
+    },
+    {
+      "category": "Domain",
+      "skills": [
+        { "name": "Process Automation", "level": 5, "highlight": true },
+        { "name": "Enterprise Integration", "level": 4, "highlight": false },
+        { "name": "Public Sector", "level": 4, "highlight": false }
+      ]
+    }
+  ],
+  "roots": {
+    "degree": "M.Sc. Physics",
+    "institution": "University of Turku",
+    "focus": "Quantum Optics",
+    "transferableInsight": "Physics taught me to find simple models for complex phenomena. That skill transfers directly to software architecture and organizational design."
+  },
+  "meta": {
+    "buildTimestamp": "2026-01-25T12:00:00Z",
+    "agents": [
+      { "name": "Architect", "contribution": "Foundation, schemas, project setup" },
+      { "name": "Scaffolder", "contribution": "Layout and structure" },
+      { "name": "Visualizer", "contribution": "Hero and animations" }
+    ],
+    "bundleSize": "< 100KB",
+    "sourceUrl": "https://github.com/lauripitkanen/portfolio"
+  }
+}

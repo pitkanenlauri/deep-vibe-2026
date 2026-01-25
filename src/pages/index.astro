@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import profileData from '../data/profile.json';
+
+const { hero, highlight, roots } = profileData;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{hero.name} | {hero.headline}</title>
+		<meta name="description" content={hero.tagline} />
+	</head>
+	<body class="min-h-screen bg-gray-50">
+		<main class="max-w-4xl mx-auto px-4 py-16">
+			<!-- Hero Section Placeholder -->
+			<section class="mb-16">
+				<h1 class="text-display text-gray-900">{hero.name}</h1>
+				<p class="text-headline text-gray-600 mt-2">{hero.headline}</p>
+				<p class="text-body text-muted mt-4">{hero.tagline}</p>
+			</section>
+
+			<!-- Highlight Section Placeholder -->
+			<section class="mb-16 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+				<h2 class="text-title text-primary-600">{highlight.title}</h2>
+				<p class="text-small text-muted mt-1">{highlight.category} &middot; {highlight.context}</p>
+				<p class="text-body mt-3">{highlight.description}</p>
+			</section>
+
+			<!-- Roots Section Placeholder -->
+			<section class="mb-16">
+				<h2 class="text-headline text-gray-900 mb-4">Roots</h2>
+				<p class="text-body">
+					<strong>{roots.degree}</strong> from {roots.institution}, focused on {roots.focus}.
+				</p>
+				<p class="text-body text-muted mt-2">{roots.transferableInsight}</p>
+			</section>
+		</main>
+	</body>
+</html>
