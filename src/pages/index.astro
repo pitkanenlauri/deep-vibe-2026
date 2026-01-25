@@ -11,10 +11,9 @@ import {
 	HighlightReveal,
 	CardGrid,
 	CardItem,
-	SkillsReveal,
-	SkillCategory,
 	RootsReveal
 } from '../components/animations/AnimatedSection';
+import SkillsChart from '../components/skills/SkillsChart';
 
 const { hero, highlight, experience, philosophy, skills, roots, meta } = profileData;
 ---
@@ -95,30 +94,7 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 
 			<!-- Skills Section -->
 			<Section id="skills" title="Skills">
-				<SkillsReveal client:visible className="space-y-8">
-					{skills.map((category) => (
-						<SkillCategory client:visible>
-							<h3 class="text-title text-gray-700 mb-4">{category.category}</h3>
-							<div class="flex flex-wrap gap-3">
-								{category.skills.map((skill) => (
-									<div
-										class:list={[
-											'px-4 py-2 rounded-lg border text-small font-medium',
-											skill.highlight
-												? 'bg-primary-500/10 border-primary-500/30 text-primary-600'
-												: 'bg-gray-100 border-gray-200 text-gray-700',
-										]}
-									>
-										<span>{skill.name}</span>
-										<span class="ml-2 opacity-60">
-											{'●'.repeat(skill.level)}{'○'.repeat(5 - skill.level)}
-										</span>
-									</div>
-								))}
-							</div>
-						</SkillCategory>
-					))}
-				</SkillsReveal>
+				<SkillsChart client:visible skills={skills} />
 			</Section>
 
 			<!-- Roots Section -->
