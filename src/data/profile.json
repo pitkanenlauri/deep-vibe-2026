@@ -55,6 +55,8 @@
         "start": "2024-01",
         "end": null
       },
+      "employmentType": "full-time",
+      "careerLevel": "lead",
       "summary": "Leading 16 engineers across 3 development teams in AI & Automation. Building high-trust teams that deliver complex enterprise automation solutions.",
       "deepDive": {
         "context": "Promoted to lead the AI & Automation unit after demonstrating technical excellence and leadership potential. Responsible for team performance, technical direction, and client relationships.",
@@ -84,6 +86,8 @@
         "start": "2022-01",
         "end": "2023-12"
       },
+      "employmentType": "full-time",
+      "careerLevel": "senior",
       "summary": "Led technical delivery of flagship automation projects. Established best practices that became team standards.",
       "deepDive": {
         "context": "Joined as a senior developer and quickly became the technical lead for critical client projects. Focused on building reliable, maintainable automation systems.",
@@ -155,6 +159,57 @@
     "focus": "Quantum Optics",
     "transferableInsight": "Physics taught me to find simple models for complex phenomena. That skill transfers directly to software architecture and organizational design."
   },
+  "education": [
+    {
+      "id": "msc-physics",
+      "degree": "M.Sc. Physics",
+      "institution": "University of Turku",
+      "focus": "Quantum Optics",
+      "type": "master",
+      "period": {
+        "start": "2015-09",
+        "end": "2018-05"
+      },
+      "transferableInsight": "Physics taught me to find simple models for complex phenomena. That skill transfers directly to software architecture and organizational design.",
+      "highlights": [
+        "Specialized in quantum optics and laser physics",
+        "Developed computational models for optical systems"
+      ]
+    },
+    {
+      "id": "bsc-physics",
+      "degree": "B.Sc. Physics",
+      "institution": "University of Turku",
+      "focus": "Physics",
+      "type": "bachelor",
+      "period": {
+        "start": "2012-09",
+        "end": "2015-05"
+      },
+      "highlights": [
+        "Foundation in mathematical physics and computational methods"
+      ]
+    }
+  ],
+  "volunteering": [
+    {
+      "id": "tech-mentor",
+      "organization": "Code Academy Finland",
+      "role": "Technical Mentor",
+      "period": {
+        "start": "2023-01",
+        "end": null
+      },
+      "description": "Mentoring aspiring developers in their journey from bootcamp to professional career.",
+      "impact": "Helped 12 mentees successfully transition into software development roles",
+      "highlights": [
+        "Weekly 1:1 mentoring sessions",
+        "Code review and career guidance",
+        "Technical interview preparation"
+      ],
+      "tags": ["Mentoring", "Career Development", "Education"]
+    }
+  ],
   "meta": {
     "buildTimestamp": "2026-01-25T12:00:00Z",
     "agents": [

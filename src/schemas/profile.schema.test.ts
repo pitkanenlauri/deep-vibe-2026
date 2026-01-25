@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { ProfileSchema } from './profile.schema';
+import {
+  ProfileSchema,
+  EducationSchema,
+  VolunteeringSchema,
+  EmploymentTypeEnum,
+  CareerLevelEnum,
+  EducationTypeEnum,
+} from './profile.schema';
 import profileData from '../data/profile.json';
 
 describe('Profile Schema Validation', () => {
@@ -80,6 +87,148 @@ describe('Profile Schema Validation', () => {
     };
 
     const result = ProfileSchema.safeParse(invalidData);
+    expect(result.success).toBe(false);
+  });
+
+  // ═══════════════════════════════════════════════════════════
+  // Education Schema Tests
+  // ═══════════════════════════════════════════════════════════
+  it('should validate education array if present', () => {
+    const result = ProfileSchema.safeParse(profileData);
+    expect(result.success).toBe(true);
+
+    if (result.success && result.data.education) {
+      expect(result.data.education.length).toBeGreaterThan(0);
+      result.data.education.forEach(edu => {
+        expect(edu.id).toBeDefined();
+        expect(edu.degree).toBeDefined();
+        expect(edu.institution).toBeDefined();
+        expect(edu.type).toBeDefined();
+        expect(edu.period.start).toBeDefined();
+      });
+    }
+  });
+
+  it('should validate education type enum values', () => {
+    const validTypes = ['bachelor', 'master', 'doctorate', 'associate', 'certificate', 'bootcamp', 'self-taught', 'other'];
+    validTypes.forEach(type => {
+      const result = EducationTypeEnum.safeParse(type);
+      expect(result.success).toBe(true);
+    });
+
+    const invalidResult = EducationTypeEnum.safeParse('invalid-type');
+    expect(invalidResult.success).toBe(false);
+  });
+
+  // ═══════════════════════════════════════════════════════════
+  // Employment Type & Career Level Tests
+  // ═══════════════════════════════════════════════════════════
+  it('should validate employment type enum values', () => {
+    const validTypes = ['full-time', 'part-time', 'contract', 'internship', 'freelance', 'apprenticeship'];
+    validTypes.forEach(type => {
+      const result = EmploymentTypeEnum.safeParse(type);
+      expect(result.success).toBe(true);
+    });
+
+    const invalidResult = EmploymentTypeEnum.safeParse('invalid-type');
+    expect(invalidResult.success).toBe(false);
+  });
+
+  it('should validate career level enum values', () => {
+    const validLevels = ['entry', 'junior', 'mid', 'senior', 'lead', 'principal', 'executive'];
+    validLevels.forEach(level => {
+      const result = CareerLevelEnum.safeParse(level);
+      expect(result.success).toBe(true);
+    });
+
+    const invalidResult = CareerLevelEnum.safeParse('invalid-level');
+    expect(invalidResult.success).toBe(false);
+  });
+
+  it('should have valid employment types in experience entries', () => {
+    const result = ProfileSchema.safeParse(profileData);
+    expect(result.success).toBe(true);
+
+    if (result.success) {
+      result.data.experience.forEach(exp => {
+        if (exp.employmentType) {
+          const typeResult = EmploymentTypeEnum.safeParse(exp.employmentType);
+          expect(typeResult.success).toBe(true);
+        }
+        if (exp.careerLevel) {
+          const levelResult = CareerLevelEnum.safeParse(exp.careerLevel);
+          expect(levelResult.success).toBe(true);
+        }
+      });
+    }
+  });
+
+  // ═══════════════════════════════════════════════════════════
+  // Volunteering Schema Tests
+  // ═══════════════════════════════════════════════════════════
+  it('should validate volunteering array if present', () => {
+    const result = ProfileSchema.safeParse(profileData);
+    expect(result.success).toBe(true);
+
+    if (result.success && result.data.volunteering) {
+      expect(result.data.volunteering.length).toBeGreaterThan(0);
+      result.data.volunteering.forEach(vol => {
+        expect(vol.id).toBeDefined();
+        expect(vol.organization).toBeDefined();
+        expect(vol.role).toBeDefined();
+        expect(vol.description).toBeDefined();
+        expect(vol.period.start).toBeDefined();
+      });
+    }
+  });
+
+  it('should validate a valid volunteering entry', () => {
+    const validVolunteering = {
+      id: 'test-volunteer',
+      organization: 'Test Org',
+      role: 'Volunteer',
+      period: { start: '2023-01', end: null },
+      description: 'Helping the community',
+      impact: 'Made a difference',
+      highlights: ['Did something good'],
+      tags: ['Community', 'Volunteer'],
+    };
+
+    const result = VolunteeringSchema.safeParse(validVolunteering);
+    expect(result.success).toBe(true);
+  });
+
+  // ═══════════════════════════════════════════════════════════
+  // Backwards Compatibility Tests
+  // ═══════════════════════════════════════════════════════════
+  it('should accept profile with only roots (legacy format)', () => {
+    const legacyProfile = {
+      ...profileData,
+      education: undefined,
+    };
+
+    const result = ProfileSchema.safeParse(legacyProfile);
+    expect(result.success).toBe(true);
+  });
+
+  it('should accept profile with only education array (new format)', () => {
+    const newProfile = {
+      ...profileData,
+      roots: undefined,
+    };
+
+    const result = ProfileSchema.safeParse(newProfile);
+    expect(result.success).toBe(true);
+  });
+
+  it('should reject profile with neither roots nor education', () => {
+    const invalidProfile = {
+      ...profileData,
+      roots: undefined,
+      education: undefined,
+    };
+
+    const result = ProfileSchema.safeParse(invalidProfile);
     expect(result.success).toBe(false);
   });
 });
