@@ -80,8 +80,13 @@ export default function TimelineItem({ experience, index = 0, isPromotion = fals
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-60px' }}
-      className={`timeline-item bg-white rounded-lg border shadow-sm overflow-hidden ${
-        isPromotion ? 'border-success-200 ring-1 ring-success-100' : 'border-gray-200'
+      whileHover={prefersReducedMotion ? {} : {
+        y: -4,
+        boxShadow: '0 8px 24px rgba(37, 99, 235, 0.12), 0 4px 8px rgba(0, 0, 0, 0.04)'
+      }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      className={`timeline-item bg-white rounded-lg border shadow-sm overflow-hidden transition-colors ${
+        isPromotion ? 'border-success-200 ring-1 ring-success-100' : 'border-gray-200 hover:border-primary-200'
       }`}
       aria-labelledby={`${experience.id}-title`}
     >
@@ -130,7 +135,7 @@ export default function TimelineItem({ experience, index = 0, isPromotion = fals
           {tags.map((tag) => (
             <span
               key={tag}
-              className="px-2 py-1 text-small bg-gray-100 text-gray-600 rounded"
+              className="timeline-tag px-2 py-1 text-small bg-gray-100 text-gray-600 rounded"
             >
               {tag}
             </span>

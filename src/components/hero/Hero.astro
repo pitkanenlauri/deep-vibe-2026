@@ -60,7 +60,7 @@ const iconPaths: Record<string, string> = {
             href={link.href}
             target={link.href.startsWith('mailto:') ? undefined : '_blank'}
             rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            class="cta-link inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
           >
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
               <path d={iconPaths[link.icon] || iconPaths.mail} />

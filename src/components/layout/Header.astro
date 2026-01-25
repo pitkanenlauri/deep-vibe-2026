@@ -27,7 +27,7 @@ const navigation = navItems.length > 0 ? navItems : defaultNavItems;
   <nav class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
     <a
       href="#hero"
-      class="text-body font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-fast"
+      class="header-logo text-body font-semibold text-gray-900"
     >
       {name}
     </a>
@@ -37,7 +37,7 @@ const navigation = navItems.length > 0 ? navItems : defaultNavItems;
         <li>
           <a
             href={item.href}
-            class="text-small text-gray-600 hover:text-primary-600 transition-colors duration-fast"
+            class="header-nav-link text-small text-gray-600"
           >
             {item.label}
           </a>
@@ -89,7 +89,7 @@ const navigation = navItems.length > 0 ? navItems : defaultNavItems;
         <li>
           <a
             href={item.href}
-            class="block py-2 text-body text-gray-600 hover:text-primary-600 transition-colors duration-fast"
+            class="mobile-nav-link block py-2 text-body text-gray-600"
             data-mobile-nav-link
           >
             {item.label}

@@ -86,11 +86,11 @@ function StatCard({ stat, index }: { stat: ImpactStat; index: number }) {
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}
       whileHover={prefersReducedMotion ? {} : {
-        scale: 1.02,
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+        y: -4,
+        boxShadow: '0 8px 24px rgba(37, 99, 235, 0.15), 0 4px 8px rgba(0, 0, 0, 0.04)'
       }}
-      transition={{ duration: 0.15, ease: 'easeOut' }}
-      className="group p-5 bg-white rounded-lg border border-gray-200 hover:border-primary-500/30 transition-colors"
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      className="group p-5 bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-colors duration-150"
     >
       <div className="flex flex-col h-full">
         <div className="mb-2">

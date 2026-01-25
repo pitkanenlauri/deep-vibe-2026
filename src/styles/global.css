@@ -203,10 +203,20 @@ body {
   }
 }
 
-/* Focus styles for accessibility */
+/* ═══════════════════════════════════════════════════════════
+   Focus Styles - Enhanced for accessibility
+   ═══════════════════════════════════════════════════════════ */
+
 :focus-visible {
   outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
+}
+
+/* Enhanced focus ring with glow */
+.focus-glow:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
 /* Typography Scale */
@@ -310,6 +320,10 @@ blockquote cite {
   background-color: var(--color-primary-100);
 }
 
+/* ═══════════════════════════════════════════════════════════
+   Button Micro-interactions
+   ═══════════════════════════════════════════════════════════ */
+
 /* Button variants */
 .btn-primary {
   display: inline-flex;
@@ -324,12 +338,42 @@ blockquote cite {
   border-radius: var(--radius-lg);
   transition: all var(--duration-fast) ease-out;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--duration-fast) ease-out;
 }
 
 .btn-primary:hover {
   background: linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-purple-700) 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 12px rgba(37, 99, 235, 0.3),
+    0 0 20px rgba(59, 130, 246, 0.15);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+  box-shadow:
+    0 4px 12px rgba(37, 99, 235, 0.3),
+    0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
 .btn-secondary {
@@ -350,19 +394,97 @@ blockquote cite {
 .btn-secondary:hover {
   background-color: var(--color-primary-50);
   border-color: var(--color-primary-400);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
 }
 
-/* Card enhancements */
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Card Micro-interactions
+   ═══════════════════════════════════════════════════════════ */
+
+/* Base card with lift effect */
 .card-elevated {
   background: white;
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-lg);
-  transition: all var(--duration-normal) ease-out;
+  transition:
+    transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow var(--duration-normal) ease-out,
+    border-color var(--duration-fast) ease-out;
 }
 
 .card-elevated:hover {
+  transform: translateY(-4px);
   border-color: var(--color-primary-200);
+  box-shadow:
+    0 8px 24px rgba(37, 99, 235, 0.12),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card-elevated:active {
+  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+/* Interactive card (clickable) */
+.card-interactive {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition:
+    transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow var(--duration-normal) ease-out,
+    border-color var(--duration-fast) ease-out,
+    background-color var(--duration-fast) ease-out;
+}
+
+.card-interactive:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary-300);
+  background-color: var(--color-gray-50);
+  box-shadow:
+    0 12px 32px rgba(37, 99, 235, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card-interactive:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.1);
+}
+
+.card-interactive:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  box-shadow:
+    0 8px 24px rgba(37, 99, 235, 0.12),
+    0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Subtle card hover (for lighter interactions) */
+.card-subtle {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  transition:
+    box-shadow var(--duration-normal) ease-out,
+    border-color var(--duration-fast) ease-out;
+}
+
+.card-subtle:hover {
+  border-color: var(--color-gray-300);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* Highlight accent bar */
@@ -402,6 +524,404 @@ blockquote cite {
   color: var(--color-purple-700);
   background-color: var(--color-purple-100);
   border-radius: 9999px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Tag/Badge Micro-interactions
+   ═══════════════════════════════════════════════════════════ */
+
+.tag-primary,
+.tag-purple {
+  transition:
+    transform var(--duration-fast) ease-out,
+    box-shadow var(--duration-fast) ease-out,
+    background-color var(--duration-fast) ease-out;
+}
+
+.tag-primary:hover {
+  transform: translateY(-1px);
+  background-color: var(--color-primary-200);
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.15);
+}
+
+.tag-purple:hover {
+  transform: translateY(-1px);
+  background-color: var(--color-purple-200);
+  box-shadow: 0 2px 4px rgba(147, 51, 234, 0.15);
+}
+
+/* Interactive tag (clickable) */
+.tag-interactive {
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) ease-out,
+    box-shadow var(--duration-fast) ease-out,
+    background-color var(--duration-fast) ease-out;
+}
+
+.tag-interactive:hover {
+  transform: scale(1.05);
+}
+
+.tag-interactive:active {
+  transform: scale(0.98);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Link Micro-interactions
+   ═══════════════════════════════════════════════════════════ */
+
+/* Animated underline link */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+  color: var(--color-primary-600);
+  transition: color var(--duration-fast) ease-out;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary-500) 0%, var(--color-purple-500) 100%);
+  transition: width var(--duration-normal) cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.link-underline:hover {
+  color: var(--color-primary-700);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Slide-in underline (from center) */
+.link-underline-center {
+  position: relative;
+  text-decoration: none;
+  color: var(--color-primary-600);
+  transition: color var(--duration-fast) ease-out;
+}
+
+.link-underline-center::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary-500);
+  transition: width var(--duration-normal) ease-out, left var(--duration-normal) ease-out;
+}
+
+.link-underline-center:hover {
+  color: var(--color-primary-700);
+}
+
+.link-underline-center:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Subtle link with gentle highlight */
+.link-subtle {
+  text-decoration: none;
+  color: var(--color-gray-600);
+  transition:
+    color var(--duration-fast) ease-out,
+    background-color var(--duration-fast) ease-out;
+  padding: 0.125rem 0.25rem;
+  margin: -0.125rem -0.25rem;
+  border-radius: var(--radius-sm);
+}
+
+.link-subtle:hover {
+  color: var(--color-primary-600);
+  background-color: var(--color-primary-50);
+}
+
+/* Nav link with active indicator */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: var(--color-gray-600);
+  padding: 0.5rem 0;
+  transition: color var(--duration-fast) ease-out;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary-500) 0%, var(--color-purple-500) 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--duration-normal) cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.nav-link:hover {
+  color: var(--color-primary-600);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-link.active {
+  color: var(--color-primary-600);
+}
+
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* Icon link with hover scale */
+.link-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--color-gray-700);
+  transition:
+    color var(--duration-fast) ease-out,
+    transform var(--duration-fast) ease-out;
+}
+
+.link-icon:hover {
+  color: var(--color-primary-600);
+  transform: translateX(2px);
+}
+
+.link-icon svg,
+.link-icon .icon {
+  transition: transform var(--duration-fast) ease-out;
+}
+
+.link-icon:hover svg,
+.link-icon:hover .icon {
+  transform: scale(1.1);
+}
+
+/* CTA link (social/action buttons) */
+.cta-link {
+  transition:
+    background-color var(--duration-fast) ease-out,
+    border-color var(--duration-fast) ease-out,
+    color var(--duration-fast) ease-out,
+    transform var(--duration-fast) ease-out,
+    box-shadow var(--duration-normal) ease-out;
+}
+
+.cta-link:hover {
+  background-color: var(--color-gray-50);
+  border-color: var(--color-primary-400);
+  color: var(--color-primary-700);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+}
+
+.cta-link:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.cta-link svg {
+  transition: transform var(--duration-fast) ease-out;
+}
+
+.cta-link:hover svg {
+  transform: scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-link:hover {
+    transform: none;
+  }
+  .cta-link:hover svg {
+    transform: none;
+  }
+}
+
+/* Header logo link */
+.header-logo {
+  position: relative;
+  text-decoration: none;
+  transition: color var(--duration-fast) ease-out;
+}
+
+.header-logo:hover {
+  color: var(--color-primary-600);
+}
+
+/* Header navigation link with animated underline */
+.header-nav-link {
+  position: relative;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  transition: color var(--duration-fast) ease-out;
+}
+
+.header-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary-500) 0%, var(--color-purple-500) 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--duration-normal) cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.header-nav-link:hover {
+  color: var(--color-primary-600);
+}
+
+.header-nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Mobile navigation link */
+.mobile-nav-link {
+  position: relative;
+  text-decoration: none;
+  padding-left: 0.75rem;
+  border-left: 2px solid transparent;
+  transition:
+    color var(--duration-fast) ease-out,
+    border-color var(--duration-fast) ease-out,
+    background-color var(--duration-fast) ease-out;
+}
+
+.mobile-nav-link:hover {
+  color: var(--color-primary-600);
+  border-left-color: var(--color-primary-500);
+  background-color: var(--color-primary-50);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-nav-link::after {
+    transition: none;
+  }
+}
+
+/* Timeline tag with hover effect */
+.timeline-tag {
+  transition:
+    background-color var(--duration-fast) ease-out,
+    color var(--duration-fast) ease-out,
+    transform var(--duration-fast) ease-out;
+}
+
+.timeline-tag:hover {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-700);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-tag:hover {
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Utility Micro-interaction Classes
+   ═══════════════════════════════════════════════════════════ */
+
+/* Hover lift effect - apply to any element */
+.hover-lift {
+  transition:
+    transform var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow var(--duration-normal) ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle hover lift */
+.hover-lift-sm {
+  transition:
+    transform var(--duration-fast) ease-out,
+    box-shadow var(--duration-fast) ease-out;
+}
+
+.hover-lift-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Hover scale effect */
+.hover-scale {
+  transition: transform var(--duration-fast) ease-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+.hover-scale:active {
+  transform: scale(0.98);
+}
+
+/* Hover glow effect */
+.hover-glow {
+  transition: box-shadow var(--duration-normal) ease-out;
+}
+
+.hover-glow:hover {
+  box-shadow:
+    0 4px 12px rgba(37, 99, 235, 0.15),
+    0 0 20px rgba(59, 130, 246, 0.1);
+}
+
+/* Press effect (button-like) */
+.press-effect {
+  transition: transform var(--duration-fast) ease-out;
+}
+
+.press-effect:active {
+  transform: scale(0.97);
+}
+
+/* Fade in on hover */
+.hover-fade-child > * {
+  transition: opacity var(--duration-fast) ease-out;
+}
+
+.hover-fade-child:hover > * {
+  opacity: 0.8;
+}
+
+.hover-fade-child:hover > *:hover {
+  opacity: 1;
+}
+
+/* Color transition utilities */
+.transition-colors-fast {
+  transition: color var(--duration-fast) ease-out, background-color var(--duration-fast) ease-out, border-color var(--duration-fast) ease-out;
+}
+
+.transition-colors-normal {
+  transition: color var(--duration-normal) ease-out, background-color var(--duration-normal) ease-out, border-color var(--duration-normal) ease-out;
+}
+
+/* All transitions utility */
+.transition-all-fast {
+  transition: all var(--duration-fast) ease-out;
+}
+
+.transition-all-normal {
+  transition: all var(--duration-normal) ease-out;
 }
 
 /* ═══════════════════════════════════════════════════════════
