@@ -1,0 +1,183 @@
+---
+import EducationCard from './EducationCard.tsx';
+import EducationConnector from './EducationConnector.tsx';
+
+interface Education {
+  id: string;
+  degree: string;
+  institution: string;
+  focus: string;
+  type: string;
+  period: {
+    start: string;
+    end: string | null;
+  };
+  transferableInsight?: string;
+  highlights?: string[];
+}
+
+interface Props {
+  education: Education[];
+}
+
+const { education } = Astro.props;
+
+// Sort education by start date (most recent first, like experience)
+const sortedEducation = [...education].sort((a, b) => {
+  return new Date(b.period.start).getTime() - new Date(a.period.start).getTime();
+});
+---
+
+<section class="education" aria-label="Education">
+  <!-- Narrative Arc Header -->
+  <div class="narrative-header mb-8">
+    <p class="text-body text-gray-600">
+      A journey from <span class="font-semibold text-primary-600">mathematical foundations</span> through
+      <span class="font-semibold text-purple-600">physics and quantum optics</span> to
+      <span class="font-semibold gradient-text">software engineering leadership</span>.
+    </p>
+  </div>
+
+  <!-- Timeline -->
+  <ol class="education-list" role="list" aria-label="Education timeline">
+    {sortedEducation.map((edu, index) => {
+      const isLast = index === sortedEducation.length - 1;
+
+      return (
+        <li class="education-entry" data-index={index}>
+          <div class="education-connector-wrapper">
+            <EducationConnector
+              isLast={isLast}
+              index={index}
+              degreeType={edu.type}
+              client:visible
+            />
+          </div>
+          <div class="education-content">
+            <EducationCard
+              education={edu}
+              index={index}
+              isLast={isLast}
+              client:visible
+            />
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+
+  <!-- Journey Connection -->
+  <div class="journey-footer mt-8 p-4 bg-gradient-to-r from-primary-50 to-purple-50 rounded-lg border border-primary-100">
+    <p class="text-small text-gray-600 text-center">
+      This academic path laid the foundation for approaching complex systems with both
+      <strong>analytical rigor</strong> and <strong>creative problem-solving</strong>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .education-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+  }
+
+  .education-entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .education-entry:last-child {
+    padding-bottom: 0;
+  }
+
+  .education-connector-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .education-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Connector styles */
+  :global(.education-connector) {
+    position: relative;
+    height: 100%;
+    min-height: 100px;
+  }
+
+  :global(.education-connector--last) {
+    height: auto;
+    min-height: auto;
+  }
+
+  :global(.education-svg) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 100%;
+  }
+
+  :global(.education-dot) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Degree type indicators */
+  :global(.degree-badge) {
+    position: absolute;
+    left: 28px;
+    top: 8px;
+    background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-purple-50) 100%);
+    border: 1px solid var(--color-primary-200);
+    border-radius: 9999px;
+    padding: 0.125rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  :global(.degree-badge__text) {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary-700);
+  }
+
+  /* Print styles */
+  @media print {
+    .education-entry {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    :global(.degree-badge) {
+      display: none;
+    }
+
+    .journey-footer {
+      background: transparent !important;
+      border: 1px solid #ccc;
+    }
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 640px) {
+    .education-entry {
+      grid-template-columns: 20px 1fr;
+      gap: 0.75rem;
+    }
+
+    :global(.degree-badge) {
+      display: none;
+    }
+  }
+</style>

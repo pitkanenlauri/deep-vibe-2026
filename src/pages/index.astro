@@ -6,16 +6,16 @@ import Section from '../components/layout/Section.astro';
 import Footer from '../components/layout/Footer.astro';
 import MetaFooter from '../components/layout/MetaFooter.astro';
 import Timeline from '../components/experience/Timeline.astro';
+import Education from '../components/education/Education.astro';
 import Hero from '../components/hero/Hero.astro';
 import {
 	HighlightReveal,
 	CardGrid,
-	CardItem,
-	RootsReveal
+	CardItem
 } from '../components/animations/AnimatedSection';
 import SkillsChart from '../components/skills/SkillsChart';
 
-const { hero, highlight, experience, philosophy, skills, roots, meta } = profileData;
+const { hero, highlight, experience, philosophy, skills, education, meta } = profileData;
 ---
 
 <html lang="en">
@@ -97,21 +97,9 @@ const { hero, highlight, experience, philosophy, skills, roots, meta } = profile
 				<SkillsChart client:visible skills={skills} />
 			</Section>
 
-			<!-- Roots Section -->
-			<Section id="roots" title="Roots">
-				<RootsReveal client:visible>
-					<div class="p-6 bg-white rounded-lg border border-gray-200">
-						<p class="text-title text-gray-900">
-							{roots.degree}
-						</p>
-						<p class="text-body text-gray-600 mt-1">
-							{roots.institution} · {roots.focus}
-						</p>
-						<p class="text-body text-muted mt-4 italic">
-							"{roots.transferableInsight}"
-						</p>
-					</div>
-				</RootsReveal>
+			<!-- Education Section -->
+			<Section id="education" title="Education">
+				<Education education={education} />
 			</Section>
 		</main>
 
