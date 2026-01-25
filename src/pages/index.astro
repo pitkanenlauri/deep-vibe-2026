@@ -1,9 +1,10 @@
 ---
 import '../styles/global.css';
+import PhilosophyCard from '../components/philosophy/PhilosophyCard.astro';
 import profileData from '../data/profile.json';
 import SkillsChart from '../components/skills/SkillsChart';
 
-const { hero, highlight, skills, roots } = profileData;
+const { hero, highlight, skills, philosophy, roots } = profileData;
 ---
 
 <html lang="en">
@@ -38,13 +39,37 @@ const { hero, highlight, skills, roots } = profileData;
 				<SkillsChart client:idle skills={skills} />
 			</section>
 
-			<!-- Roots Section Placeholder -->
+			<!-- Philosophy Section -->
 			<section class="mb-16">
-				<h2 class="text-headline text-gray-900 mb-4">Roots</h2>
-				<p class="text-body">
-					<strong>{roots.degree}</strong> from {roots.institution}, focused on {roots.focus}.
-				</p>
-				<p class="text-body text-muted mt-2">{roots.transferableInsight}</p>
+				<h2 class="text-headline text-gray-900 mb-6">Philosophy</h2>
+				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+					{philosophy.map((item) => (
+						<PhilosophyCard
+							id={item.id}
+							title={item.title}
+							belief={item.belief}
+							source={item.source}
+						/>
+					))}
+				</div>
+			</section>
+
+			<!-- Roots Section -->
+			<section class="mb-16 roots-section">
+				<h2 class="text-headline text-gray-900 mb-6">Roots</h2>
+				<div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+					<div class="roots-header mb-4">
+						<p class="text-title text-gray-900">
+							{roots.degree}
+						</p>
+						<p class="text-body text-muted">
+							{roots.institution} · {roots.focus}
+						</p>
+					</div>
+					<blockquote class="roots-insight">
+						<p class="text-body">{roots.transferableInsight}</p>
+					</blockquote>
+				</div>
 			</section>
 		</main>
 	</body>

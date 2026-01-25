@@ -1,0 +1,49 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  belief: string;
+  source?: {
+    author: string;
+    work: string;
+  };
+}
+
+const { id, title, belief, source } = Astro.props;
+---
+
+<article class="philosophy-card" data-philosophy-id={id}>
+  <h3 class="text-title text-primary-600 mb-3">{title}</h3>
+  <blockquote class="philosophy-quote">
+    <p class="text-body">{belief}</p>
+    {source && (
+      <footer class="philosophy-source text-small text-muted mt-3">
+        — {source.author}, <cite>{source.work}</cite>
+      </footer>
+    )}
+  </blockquote>
+</article>
+
+<style>
+  .philosophy-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-gray-200);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  .philosophy-quote {
+    padding-left: 1rem;
+    border-left: 3px solid var(--color-primary-500);
+  }
+
+  .philosophy-quote p {
+    font-style: italic;
+    color: var(--color-gray-700);
+  }
+
+  .philosophy-source cite {
+    font-style: normal;
+  }
+</style>

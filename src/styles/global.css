@@ -130,6 +130,26 @@ body {
   color: var(--color-text-muted);
 }
 
+/* Blockquote Styling - Subtle academic feel */
+blockquote {
+  padding-left: var(--spacing-4);
+  border-left: 3px solid var(--color-primary-500);
+  margin: 0;
+}
+
+blockquote p {
+  font-style: italic;
+  color: var(--color-gray-700);
+}
+
+blockquote footer {
+  margin-top: var(--spacing-3);
+}
+
+blockquote cite {
+  font-style: normal;
+}
+
 /* Responsive typography */
 @media (min-width: 768px) {
   .text-display {
