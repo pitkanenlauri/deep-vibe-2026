@@ -1005,8 +1005,8 @@ blockquote cite {
 }
 
 [data-theme="dark"] .bg-white {
-  background-color: rgba(30, 41, 59, 0.85);
-  backdrop-filter: blur(8px);
+  background-color: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(4px);
 }
 
 /* Dark mode borders */
@@ -1027,8 +1027,8 @@ blockquote cite {
 [data-theme="dark"] .card-elevated,
 [data-theme="dark"] .card-interactive,
 [data-theme="dark"] .card-subtle {
-  background-color: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(8px);
+  background-color: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(4px);
   border-color: var(--color-dark-border);
 }
 

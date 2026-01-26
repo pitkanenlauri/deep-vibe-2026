@@ -53,7 +53,7 @@ const { hero, highlight, experience, philosophy, skills, education, meta } = pro
 
 		<main class="max-w-4xl mx-auto px-4">
 			<!-- Hero Section -->
-			<Section id="hero" class="pt-8 md:pt-12">
+			<Section id="hero" class="pt-8 md:pt-12 !pb-2">
 				<Hero
 					name={hero.name}
 					headline={hero.headline}
@@ -65,7 +65,7 @@ const { hero, highlight, experience, philosophy, skills, education, meta } = pro
 			</Section>
 
 			<!-- Highlight Section -->
-			<Section id="highlight" variant="highlight" class="accent-bar pl-6">
+			<Section id="highlight" variant="highlight" class="accent-bar pl-6 !py-4 !md:py-5">
 				<HighlightReveal client:visible>
 					<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
 						<div>
