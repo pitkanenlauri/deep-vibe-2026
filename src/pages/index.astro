@@ -14,6 +14,7 @@ import {
 } from '../components/animations/AnimatedSection';
 import SkillsChart from '../components/skills/SkillsChart';
 import KonamiCode from '../components/easter-eggs/KonamiCode';
+import SpaceBackground from '../components/background/SpaceBackground';
 
 const { hero, highlight, experience, philosophy, skills, education, meta } = profileData;
 ---
@@ -45,6 +46,9 @@ const { hero, highlight, experience, philosophy, skills, education, meta } = pro
 		/>
 	</head>
 	<body class="min-h-screen bg-gray-50 text-gray-800 transition-colors duration-300">
+		<!-- Space Background (dark mode only) -->
+		<SpaceBackground client:load />
+
 		<Header name={hero.name} />
 
 		<main class="max-w-4xl mx-auto px-4">
