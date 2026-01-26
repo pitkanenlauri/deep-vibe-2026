@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from '../ui/ThemeToggle';
+
 interface NavItem {
   label: string;
   href: string;
@@ -32,27 +34,32 @@ const navigation = navItems.length > 0 ? navItems : defaultNavItems;
       {name}
     </a>
 
-    <ul class="hidden sm:flex items-center gap-6">
-      {navigation.map((item) => (
-        <li>
-          <a
-            href={item.href}
-            class="header-nav-link text-small text-gray-600"
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="hidden sm:flex items-center gap-6">
+      <ul class="flex items-center gap-6">
+        {navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="header-nav-link text-small text-gray-600"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <ThemeToggle client:load />
+    </div>
 
-    <!-- Mobile menu button -->
-    <button
-      type="button"
-      class="sm:hidden p-2 -mr-2 text-gray-600 hover:text-gray-900 transition-colors duration-fast"
-      aria-label="Toggle navigation menu"
-      aria-expanded="false"
-      data-mobile-menu-toggle
-    >
+    <!-- Mobile: Theme toggle and menu button -->
+    <div class="sm:hidden flex items-center gap-2">
+      <ThemeToggle client:load />
+      <button
+        type="button"
+        class="p-2 -mr-2 text-gray-600 hover:text-gray-900 transition-colors duration-fast"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        data-mobile-menu-toggle
+      >
       <svg
         class="w-5 h-5"
         fill="none"
@@ -75,8 +82,9 @@ const navigation = navItems.length > 0 ? navItems : defaultNavItems;
           data-menu-icon-close
           class="hidden"
         />
-      </svg>
-    </button>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <!-- Mobile navigation menu -->

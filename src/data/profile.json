@@ -59,182 +59,153 @@
       "careerLevel": "lead",
       "summary": "Leading 16 engineers across 3 development teams in AI & Automation. Building high-trust teams that deliver complex enterprise automation solutions.",
       "deepDive": {
-        "context": "Promoted to lead the AI & Automation unit after demonstrating technical excellence and leadership potential. Responsible for team performance, technical direction, and client relationships.",
+        "context": "Promoted to lead the AI & Automation unit. Responsible for team performance, technical direction, and client relationships.",
         "technicalHighlights": [
           "Architected PAM unemployment benefit system processing 70k+ applications annually",
-          "Established coding standards and review practices across all teams",
-          "Introduced AI-assisted development workflows improving team velocity"
+          "Established coding standards and review practices across teams",
+          "Introduced AI-assisted development workflows"
         ],
         "leadershipHighlights": [
-          "Built and maintained team trust score of 4.8/5",
-          "Mentored 4 engineers to senior positions",
-          "Reduced team turnover to near-zero through engagement initiatives"
+          "Leading cross-functional engineering teams",
+          "Technical mentoring and career development",
+          "Stakeholder communication and client relationships"
         ],
         "metrics": [
           { "value": "16", "label": "Engineers managed" },
-          { "value": "3", "label": "Teams led" },
-          { "value": "4.8/5", "label": "Trust score" }
+          { "value": "3", "label": "Teams led" }
         ]
       },
       "tags": ["Leadership", "AI", "Automation", "Team Building", "Architecture"]
     },
     {
-      "id": "digia-senior",
+      "id": "digia-lead",
       "company": "Digia",
-      "role": "Senior Software Developer",
+      "role": "Dev Team Lead",
       "period": {
-        "start": "2022-01",
+        "start": "2023-08",
         "end": "2023-12"
       },
       "employmentType": "full-time",
       "careerLevel": "senior",
-      "summary": "Led technical delivery of flagship automation projects. Established best practices that became team standards.",
+      "summary": "Led development team through critical project phases. Transitioned from individual contributor to team leadership role.",
       "deepDive": {
-        "context": "Joined as a senior developer and quickly became the technical lead for critical client projects. Focused on building reliable, maintainable automation systems.",
+        "context": "Promoted to team lead role, responsible for team coordination, technical decisions, and delivery of automation projects.",
         "technicalHighlights": [
-          "Designed and implemented high-availability architecture achieving 99.99% uptime",
-          "Built reusable automation framework adopted across multiple projects",
-          "Introduced comprehensive testing practices reducing production incidents by 80%"
+          "Coordinated team delivery on multiple concurrent projects",
+          "Established team processes and code review practices",
+          "Mentored junior developers on best practices"
+        ],
+        "leadershipHighlights": [
+          "Successfully led team through high-pressure delivery phases",
+          "Improved team collaboration and communication"
         ],
         "metrics": [
-          { "value": "99.99%", "label": "System uptime" },
-          { "value": "270+", "label": "Hours saved monthly" },
-          { "value": "€0.5M+", "label": "Revenue generated" }
+          { "value": "5", "label": "Months in role" },
+          { "value": "1", "label": "Team led" }
         ]
       },
-      "tags": ["Python", "TypeScript", "Node.js", "RPA", "Architecture", "Testing"]
+      "tags": ["Team Leadership", "Agile", "Mentoring", "Project Delivery"]
     },
     {
       "id": "digia-developer",
       "company": "Digia",
-      "role": "Software Developer",
+      "role": "Software Engineer",
       "period": {
-        "start": "2020-06",
-        "end": "2021-12"
+        "start": "2022-04",
+        "end": "2023-07"
       },
       "employmentType": "full-time",
       "careerLevel": "mid",
-      "summary": "Developed RPA automation solutions for enterprise clients. Built expertise in process automation and system integration.",
+      "summary": "Developed RPA and automation solutions for enterprise clients. Built expertise in process automation and system integration.",
       "deepDive": {
-        "context": "Transitioned from space industry to enterprise automation. Applied analytical skills from physics background to optimize business processes.",
+        "context": "Joined Digia to work on enterprise automation solutions. Applied analytical skills from physics background to optimize business processes.",
         "technicalHighlights": [
           "Developed Python-based automation pipelines for document processing",
           "Built integrations between legacy systems and modern cloud services",
-          "Created reusable automation components reducing development time by 40%"
+          "Created reusable automation components"
         ],
         "metrics": [
-          { "value": "15+", "label": "Automation projects" },
-          { "value": "40%", "label": "Development time reduction" }
+          { "value": "1yr 4mo", "label": "Duration" }
         ]
       },
-      "tags": ["Python", "RPA", "UiPath", "Integration", "Cloud"]
+      "tags": ["Python", "RPA", "Integration", "Cloud"]
     },
     {
-      "id": "iceye-engineer",
-      "company": "ICEYE",
-      "role": "Software Engineer",
+      "id": "tiedekoulu",
+      "company": "Tiedekoulu",
+      "role": "Teacher",
       "period": {
-        "start": "2019-01",
-        "end": "2020-05"
+        "start": "2020-01",
+        "end": "2022-05"
       },
-      "employmentType": "full-time",
+      "employmentType": "part-time",
       "careerLevel": "mid",
-      "summary": "Developed satellite data processing systems at a cutting-edge Finnish space technology company.",
+      "isEarlyCareer": true,
+      "summary": "Taught science courses to students, making complex scientific concepts accessible and engaging.",
       "deepDive": {
-        "context": "Applied physics and programming expertise to space technology. Worked on ground segment software for SAR satellite constellation.",
+        "context": "Part-time teaching role while completing graduate studies. Developed skills in science communication and pedagogy.",
         "technicalHighlights": [
-          "Built Python pipelines for satellite imagery processing",
-          "Developed algorithms for SAR data analysis and quality control",
-          "Contributed to ground station automation systems"
+          "Designed and delivered science curriculum for various age groups",
+          "Created hands-on experiments and demonstrations",
+          "Adapted teaching methods for remote learning during pandemic"
         ],
         "metrics": [
-          { "value": "TB+", "label": "Daily data processed" },
-          { "value": "24/7", "label": "System availability" }
+          { "value": "2+ yrs", "label": "Duration" },
+          { "value": "Part-time", "label": "Type" }
         ]
       },
-      "tags": ["Python", "Satellite", "Data Processing", "Algorithms", "Space Tech"]
+      "tags": ["Teaching", "Science Communication", "Physics", "Education"]
+    },
+    {
+      "id": "aboa-space",
+      "company": "Aboa Space Research Oy",
+      "role": "Research Engineer",
+      "period": {
+        "start": "2020-06",
+        "end": "2021-06"
+      },
+      "employmentType": "contract",
+      "careerLevel": "mid",
+      "summary": "Contributed to space research projects, applying physics knowledge to satellite and space technology development.",
+      "deepDive": {
+        "context": "Worked on space research initiatives, combining academic physics background with practical engineering work.",
+        "technicalHighlights": [
+          "Contributed to satellite instrumentation projects",
+          "Applied computational physics methods to space research",
+          "Collaborated with academic and industry partners"
+        ],
+        "metrics": [
+          { "value": "1 year", "label": "Duration" },
+          { "value": "Space Tech", "label": "Domain" }
+        ]
+      },
+      "tags": ["Space Technology", "Research", "Physics", "Instrumentation"]
     },
     {
       "id": "utu-researcher",
       "company": "University of Turku",
       "role": "Research Assistant",
       "period": {
-        "start": "2017-09",
-        "end": "2018-12"
+        "start": "2019-05",
+        "end": "2019-07"
       },
-      "employmentType": "part-time",
+      "employmentType": "internship",
       "careerLevel": "entry",
       "isEarlyCareer": true,
-      "summary": "Conducted quantum optics research while completing M.Sc. in Physics. Developed computational models for optical systems.",
+      "summary": "Conducted quantum optics research during a 3-month summer internship. Developed computational models for optical systems.",
       "deepDive": {
-        "context": "Combined graduate studies with hands-on research experience. Specialized in theoretical and computational physics.",
+        "context": "Summer research internship in quantum optics, gaining hands-on experience in theoretical and computational physics.",
         "technicalHighlights": [
           "Developed Python simulations for quantum optical phenomena",
           "Created data analysis pipelines for experimental physics data",
-          "Contributed to peer-reviewed publications in quantum optics"
+          "Contributed to research publications in quantum optics"
         ],
         "metrics": [
-          { "value": "2", "label": "Research publications" },
+          { "value": "3", "label": "Months" },
           { "value": "Python", "label": "Primary tool" }
         ]
       },
       "tags": ["Python", "Research", "Quantum Optics", "Physics", "Data Analysis"]
-    },
-    {
-      "id": "utu-teaching",
-      "company": "University of Turku",
-      "role": "Teaching Assistant",
-      "period": {
-        "start": "2016-09",
-        "end": "2018-05"
-      },
-      "employmentType": "part-time",
-      "careerLevel": "entry",
-      "isEarlyCareer": true,
-      "summary": "Taught physics laboratory courses and tutored undergraduate students in mathematics and physics.",
-      "deepDive": {
-        "context": "Developed teaching skills while pursuing graduate studies. Responsible for lab sessions and student support.",
-        "technicalHighlights": [
-          "Led laboratory sessions for introductory physics courses",
-          "Developed teaching materials and exercise solutions",
-          "Mentored undergraduate students in research methods"
-        ],
-        "leadershipHighlights": [
-          "Consistently received positive student feedback",
-          "Developed effective teaching methodologies for complex concepts"
-        ],
-        "metrics": [
-          { "value": "200+", "label": "Students taught" },
-          { "value": "4.5/5", "label": "Student rating" }
-        ]
-      },
-      "tags": ["Teaching", "Physics", "Mentoring", "Communication"]
-    },
-    {
-      "id": "tut-assistant",
-      "company": "Tampere University of Technology",
-      "role": "Course Assistant",
-      "period": {
-        "start": "2014-01",
-        "end": "2016-05"
-      },
-      "employmentType": "part-time",
-      "careerLevel": "entry",
-      "isEarlyCareer": true,
-      "summary": "Assisted in programming and mathematics courses while completing CS/Math studies.",
-      "deepDive": {
-        "context": "Early exposure to teaching and technical communication. Helped students master programming fundamentals.",
-        "technicalHighlights": [
-          "Tutored students in Python, Java, and C programming",
-          "Assisted in discrete mathematics and algorithms courses",
-          "Developed automated grading scripts for programming assignments"
-        ],
-        "metrics": [
-          { "value": "150+", "label": "Students assisted" },
-          { "value": "3", "label": "Courses supported" }
-        ]
-      },
-      "tags": ["Python", "Java", "Teaching", "Algorithms", "Mathematics"]
     }
   ],
   "philosophy": [
@@ -261,67 +232,60 @@
       "category": "Technical",
       "skills": [
         { "name": "Python", "level": 5, "highlight": true },
-        { "name": "TypeScript", "level": 5, "highlight": true },
-        { "name": "Node.js", "level": 5, "highlight": false },
-        { "name": "System Architecture", "level": 4, "highlight": true },
-        { "name": "AI/ML Integration", "level": 4, "highlight": true },
-        { "name": "Testing & QA", "level": 5, "highlight": false }
+        { "name": "LLMs", "level": 4, "highlight": true },
+        { "name": "Azure", "level": 4, "highlight": false }
       ]
     },
     {
       "category": "Leadership",
       "skills": [
-        { "name": "Team Building", "level": 5, "highlight": true },
-        { "name": "Technical Mentoring", "level": 5, "highlight": true },
-        { "name": "Strategic Planning", "level": 4, "highlight": true },
-        { "name": "Stakeholder Communication", "level": 4, "highlight": false },
-        { "name": "Agile Leadership", "level": 4, "highlight": false }
+        { "name": "Team Leadership", "level": 5, "highlight": true },
+        { "name": "Management", "level": 4, "highlight": true },
+        { "name": "Communication", "level": 4, "highlight": false },
+        { "name": "Problem Solving", "level": 4, "highlight": false }
       ]
     },
     {
       "category": "Domain",
       "skills": [
-        { "name": "Process Automation", "level": 5, "highlight": true },
-        { "name": "AI Strategy", "level": 4, "highlight": true },
-        { "name": "Enterprise Integration", "level": 4, "highlight": false },
-        { "name": "Public Sector", "level": 4, "highlight": false },
-        { "name": "Space Technology", "level": 3, "highlight": false }
+        { "name": "Pre-Sales", "level": 4, "highlight": true },
+        { "name": "Client Consulting", "level": 4, "highlight": true }
       ]
     }
   ],
   "roots": {
-    "degree": "M.Sc. Physics",
+    "degree": "Physics Studies",
     "institution": "University of Turku",
-    "focus": "Quantum Optics",
+    "focus": "Physics",
     "transferableInsight": "Physics taught me to find simple models for complex phenomena. That skill transfers directly to software architecture and organizational design."
   },
   "education": [
     {
-      "id": "msc-physics",
-      "degree": "M.Sc. Physics",
+      "id": "physics-studies",
+      "degree": "Physics Studies (M.Sc. incomplete)",
       "institution": "University of Turku",
-      "focus": "Quantum Optics",
-      "type": "master",
+      "focus": "Physics",
+      "type": "other",
       "period": {
-        "start": "2017-09",
+        "start": "2017-08",
         "end": "2022-05"
       },
       "transferableInsight": "Physics taught me to find simple models for complex phenomena. That skill transfers directly to software architecture and organizational design.",
       "highlights": [
-        "Specialized in quantum optics and laser physics",
-        "Developed computational models for optical systems",
-        "Published research on quantum phenomena"
+        "Studied theoretical and computational physics",
+        "Research experience in quantum optics",
+        "Developed strong analytical and problem-solving skills"
       ]
     },
     {
       "id": "bsc-cs-math",
-      "degree": "B.Sc. Computer Science / Mathematics",
+      "degree": "Computer Science & Mathematics",
       "institution": "Tampere University of Technology",
-      "focus": "Computer Science & Mathematical Foundations",
-      "type": "bachelor",
+      "focus": "Computer Science & Mathematics",
+      "type": "other",
       "period": {
-        "start": "2012-09",
-        "end": "2016-05"
+        "start": "2012",
+        "end": "2016"
       },
       "transferableInsight": "Built the programming foundations and mathematical rigor that would later prove essential in both physics research and software engineering.",
       "highlights": [
@@ -333,42 +297,25 @@
   ],
   "volunteering": [
     {
-      "id": "tech-mentor",
-      "organization": "Code Academy Finland",
-      "role": "Technical Mentor",
+      "id": "utu-mentor",
+      "organization": "University of Turku",
+      "role": "Mentor",
       "period": {
-        "start": "2023-01",
-        "end": null
+        "start": "2024-01",
+        "end": "2024-06"
       },
-      "description": "Mentoring aspiring developers in their journey from bootcamp to professional career.",
-      "impact": "Helped 12 mentees successfully transition into software development roles",
+      "description": "Mentored students at University of Turku, providing guidance on academic and career development.",
+      "impact": "Supported students in their academic journey and career decisions",
       "highlights": [
-        "Weekly 1:1 mentoring sessions",
-        "Code review and career guidance",
-        "Technical interview preparation"
+        "One-on-one mentoring sessions",
+        "Career guidance and advice",
+        "Academic support and study skills"
       ],
-      "tags": ["Mentoring", "Career Development", "Education"]
-    },
-    {
-      "id": "physics-outreach",
-      "organization": "Turku Science Festival",
-      "role": "Science Communicator",
-      "period": {
-        "start": "2017-06",
-        "end": "2019-08"
-      },
-      "description": "Presented physics demonstrations and workshops to engage public interest in science.",
-      "impact": "Reached 500+ participants across multiple events",
-      "highlights": [
-        "Designed interactive quantum physics demonstrations",
-        "Led hands-on workshops for school students",
-        "Contributed to public understanding of science"
-      ],
-      "tags": ["Science Communication", "Physics", "Education", "Public Outreach"]
+      "tags": ["Mentoring", "Education", "Career Development"]
     }
   ],
   "meta": {
-    "buildTimestamp": "2026-01-25T21:00:00Z",
+    "buildTimestamp": "2026-01-26T12:00:00Z",
     "agents": [
       { "name": "Architect", "contribution": "Foundation, schemas, project setup" },
       { "name": "Scaffolder", "contribution": "Layout and structure" },

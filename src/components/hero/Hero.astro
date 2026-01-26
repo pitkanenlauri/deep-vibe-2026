@@ -1,6 +1,6 @@
 ---
 import ImpactDashboard from './ImpactDashboard';
-import HeroConstellation from './HeroConstellation';
+import GradientMesh from './GradientMesh';
 import { HeroTextReveal, HeroItem } from '../animations/AnimatedSection';
 
 interface Props {
@@ -33,7 +33,7 @@ const iconPaths: Record<string, string> = {
 ---
 
 <section class="mb-16 relative">
-  <HeroConstellation client:load />
+  <GradientMesh client:load />
   <HeroTextReveal client:load className="mb-8 relative z-10">
     <HeroItem client:load>
       <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">

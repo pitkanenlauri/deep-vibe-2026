@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: 'http://localhost:4321/deep-vibe-2026',
     trace: 'on-first-retry',
   },
   projects: [
@@ -23,7 +23,8 @@ export default defineConfig({
   ],
   webServer: {
     command: 'npm run preview',
-    url: 'http://localhost:4321',
+    url: 'http://localhost:4321/deep-vibe-2026',
     reuseExistingServer: !process.env.CI,
+    timeout: 120000,
   },
 });

@@ -92,15 +92,15 @@ function StatCard({ stat, index }: { stat: ImpactStat; index: number }) {
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       className="group p-5 bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-colors duration-150"
     >
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full min-h-[140px]">
         <div className="mb-2">
-          <span className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
+          <div className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
             <CountUp value={stat.value} duration={800} />
-          </span>
-          <span className="ml-1.5 text-sm text-gray-500">{stat.unit}</span>
+          </div>
+          <div className="text-xs md:text-sm text-gray-500 truncate">{stat.unit}</div>
         </div>
         <h3 className="text-base font-semibold text-gray-800 mb-1">{stat.label}</h3>
-        <p className="text-sm text-gray-500 leading-relaxed">{stat.detail}</p>
+        <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">{stat.detail}</p>
       </div>
     </motion.div>
   );

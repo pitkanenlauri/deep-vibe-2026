@@ -14,12 +14,12 @@ import {
 	CardItem
 } from '../components/animations/AnimatedSection';
 import SkillsChart from '../components/skills/SkillsChart';
-import JourneyArc from '../components/journey/JourneyArc';
+import KonamiCode from '../components/easter-eggs/KonamiCode';
 
 const { hero, highlight, experience, philosophy, skills, education, meta } = profileData;
 ---
 
-<html lang="en">
+<html lang="en" data-theme="dark">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -29,6 +29,14 @@ const { hero, highlight, experience, philosophy, skills, education, meta } = pro
 		<title>{hero.name} | {hero.headline}</title>
 		<meta name="description" content={hero.tagline} />
 
+		<!-- Theme initialization script (runs before render to prevent flash) -->
+		<script is:inline>
+			(function() {
+				const theme = localStorage.getItem('theme') || 'dark';
+				document.documentElement.setAttribute('data-theme', theme);
+			})();
+		</script>
+
 		<!-- Preconnect to Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,7 +45,7 @@ const { hero, highlight, experience, philosophy, skills, education, meta } = pro
 			rel="stylesheet"
 		/>
 	</head>
-	<body class="min-h-screen bg-gray-50 text-gray-800">
+	<body class="min-h-screen bg-gray-50 text-gray-800 transition-colors duration-300">
 		<Header name={hero.name} />
 
 		<main class="max-w-4xl mx-auto px-4">
@@ -67,11 +75,6 @@ const { hero, highlight, experience, philosophy, skills, education, meta } = pro
 					</div>
 					<p class="text-body mt-4 text-gray-700">{highlight.description}</p>
 				</HighlightReveal>
-			</Section>
-
-			<!-- Journey Arc Section -->
-			<Section id="journey" title="The Journey" variant="gradient">
-				<JourneyArc client:visible />
 			</Section>
 
 			<!-- Experience Section -->
@@ -117,5 +120,14 @@ const { hero, highlight, experience, philosophy, skills, education, meta } = pro
 		/>
 		<!-- Meta Footer: The "How This Was Built" Story -->
 		<MetaFooter />
+
+		<!-- Easter Egg: Konami Code -->
+		<KonamiCode
+			client:idle
+			agents={meta.agents}
+			buildTimestamp={meta.buildTimestamp}
+			bundleSize={meta.bundleSize}
+			sourceUrl={meta.sourceUrl}
+		/>
 	</body>
 </html>
