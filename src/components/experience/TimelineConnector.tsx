@@ -110,20 +110,6 @@ export default function TimelineConnector({ isPromotion = false, isLast = false,
         )}
       </svg>
 
-      {/* Promotion badge */}
-      {isPromotion && (
-        <motion.div
-          className="promotion-badge"
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{
-            duration: prefersReducedMotion ? 0 : 0.4,
-            delay: prefersReducedMotion ? 0 : index * 0.15 + 1
-          }}
-        >
-          <span className="promotion-badge__text">Promoted</span>
-        </motion.div>
-      )}
     </div>
   );
 }
