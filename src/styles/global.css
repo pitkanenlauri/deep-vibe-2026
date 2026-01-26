@@ -1002,8 +1002,22 @@ blockquote cite {
   background-color: transparent;
 }
 
+/* Default: transparent for simple sections (Award, Philosophy) */
 [data-theme="dark"] .bg-white {
   background-color: transparent;
+}
+
+/* Frosted glass effect for content-heavy sections (Hero, Experience, Skills) */
+[data-theme="dark"] #hero,
+[data-theme="dark"] #experience,
+[data-theme="dark"] #skills {
+  background-color: rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(3px);
+  border-radius: 1rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* Dark mode borders */
