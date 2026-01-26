@@ -39,7 +39,7 @@ export default function GradientMesh({ className = '' }: GradientMeshProps) {
         duration: custom.duration,
         delay: custom.delay,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: 'easeInOut' as const,
       },
     }),
   };
