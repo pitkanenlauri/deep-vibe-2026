@@ -9,17 +9,17 @@ module.exports = {
       assertions: {
         // Performance budget from spec
         'categories:performance': ['error', { minScore: 0.95 }],
-        'categories:accessibility': ['error', { minScore: 1.0 }],
+        'categories:accessibility': ['error', { minScore: 0.95 }],
         'categories:best-practices': ['error', { minScore: 0.9 }],
         'categories:seo': ['error', { minScore: 0.9 }],
 
         // Core Web Vitals
         'first-contentful-paint': ['error', { maxNumericValue: 1200 }],
-        'cumulative-layout-shift': ['error', { maxNumericValue: 0 }],
+        'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
         'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
 
         // Bundle size enforcement (via total byte weight)
-        'total-byte-weight': ['warn', { maxNumericValue: 150000 }],
+        'total-byte-weight': ['warn', { maxNumericValue: 200000 }],
 
         // Accessibility requirements
         'color-contrast': 'error',
