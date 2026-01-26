@@ -995,11 +995,18 @@ blockquote cite {
 }
 
 [data-theme="dark"] .bg-gray-100 {
-  background-color: var(--color-dark-surface);
+  background-color: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .bg-gray-100\/50 {
+  background-color: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(8px);
 }
 
 [data-theme="dark"] .bg-white {
-  background-color: var(--color-dark-surface);
+  background-color: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(8px);
 }
 
 /* Dark mode borders */
@@ -1016,11 +1023,12 @@ blockquote cite {
   background-color: rgba(15, 23, 42, 0.95);
 }
 
-/* Dark mode cards and surfaces */
+/* Dark mode cards and surfaces - semi-transparent for starfield */
 [data-theme="dark"] .card-elevated,
 [data-theme="dark"] .card-interactive,
 [data-theme="dark"] .card-subtle {
-  background-color: var(--color-dark-surface);
+  background-color: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(8px);
   border-color: var(--color-dark-border);
 }
 
@@ -1029,13 +1037,13 @@ blockquote cite {
   border-color: var(--color-primary-500);
 }
 
-/* Dark mode sections */
+/* Dark mode sections - transparent to show starfield */
 [data-theme="dark"] .section-gradient {
-  background: linear-gradient(180deg, var(--color-dark-bg) 0%, #1e3a5f 100%);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(30, 58, 95, 0.4) 100%);
 }
 
 [data-theme="dark"] .section-gradient-reverse {
-  background: linear-gradient(180deg, #1e3a5f 0%, var(--color-dark-bg) 100%);
+  background: linear-gradient(180deg, rgba(30, 58, 95, 0.4) 0%, rgba(15, 23, 42, 0.3) 100%);
 }
 
 /* Dark mode gradient text still visible */

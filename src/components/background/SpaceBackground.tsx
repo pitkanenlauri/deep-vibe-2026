@@ -9,6 +9,7 @@ interface Star {
   twinkleSpeed: number;
   twinklePhase: number;
   layer: 'far' | 'near';
+  color: string;
 }
 
 interface Rocket {
@@ -17,7 +18,7 @@ interface Rocket {
   y: number;
   size: number;
   speed: number;
-  angle: number;
+  angle: number; // Direction of travel (degrees, 0 = right, -90 = up)
 }
 
 interface Comet {
@@ -40,18 +41,45 @@ interface ShootingStar {
   life: number;
 }
 
+interface Satellite {
+  id: number;
+  x: number;
+  y: number;
+  speed: number;
+  angle: number;
+  size: number;
+  blinkPhase: number;
+}
+
+interface Planet {
+  x: number;
+  y: number;
+  size: number;
+  color: string;
+  glowColor: string;
+  layer: 'far' | 'mid';
+}
+
 // Design system colors
 const COLORS = {
   deepSpace: '#0f172a',
   deepSpaceLight: '#1e293b',
   starWhite: '#ffffff',
-  starBlue: '#3b82f6',
-  rocketBody: '#94a3b8',
+  starBlue: '#93c5fd',
+  starGold: '#fcd34d',
+  rocketBody: '#e2e8f0',
+  rocketNose: '#ef4444',
   rocketWindow: '#3b82f6',
   cometCore: '#ffffff',
   cometAmber: '#f59e0b',
   cometOrange: '#ea580c',
-  exhaustGlow: '#f59e0b',
+  exhaustCore: '#fef3c7',
+  exhaustMid: '#f97316',
+  exhaustOuter: '#dc2626',
+  satelliteBody: '#94a3b8',
+  planetPurple: '#8b5cf6',
+  planetBlue: '#3b82f6',
+  planetTeal: '#14b8a6',
 };
 
 export default function SpaceBackground() {
@@ -67,65 +95,104 @@ export default function SpaceBackground() {
   const rocketsRef = useRef<Rocket[]>([]);
   const cometsRef = useRef<Comet[]>([]);
   const shootingStarsRef = useRef<ShootingStar[]>([]);
+  const satellitesRef = useRef<Satellite[]>([]);
+  const planetsRef = useRef<Planet[]>([]);
   const lastRocketSpawnRef = useRef(0);
   const lastCometSpawnRef = useRef(0);
   const lastShootingStarRef = useRef(0);
+  const lastSatelliteSpawnRef = useRef(0);
 
-  // Initialize stars
+  // Initialize stars with more variety
   const initStars = useCallback((width: number, height: number) => {
     const stars: Star[] = [];
 
-    // Far stars (tiny, static-ish)
-    for (let i = 0; i < 150; i++) {
+    // Far stars (tiny, minimal twinkle)
+    for (let i = 0; i < 180; i++) {
       stars.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: 0.5 + Math.random() * 1,
-        opacity: 0.3 + Math.random() * 0.3,
-        twinkleSpeed: 0,
-        twinklePhase: 0,
+        size: 0.5 + Math.random() * 0.8,
+        opacity: 0.2 + Math.random() * 0.4,
+        twinkleSpeed: Math.random() * 0.5,
+        twinklePhase: Math.random() * Math.PI * 2,
         layer: 'far',
+        color: COLORS.starWhite,
       });
     }
 
-    // Near stars (bigger, twinkle)
-    for (let i = 0; i < 50; i++) {
+    // Near stars (bigger, more pronounced twinkle, some colored)
+    for (let i = 0; i < 60; i++) {
+      const colorRoll = Math.random();
+      let color = COLORS.starWhite;
+      if (colorRoll > 0.85) color = COLORS.starBlue;
+      else if (colorRoll > 0.75) color = COLORS.starGold;
+
       stars.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: 1.5 + Math.random() * 1.5,
-        opacity: 0.6 + Math.random() * 0.4,
-        twinkleSpeed: 0.5 + Math.random() * 1.5,
+        size: 1.5 + Math.random() * 2,
+        opacity: 0.7 + Math.random() * 0.3,
+        twinkleSpeed: 1 + Math.random() * 2,
         twinklePhase: Math.random() * Math.PI * 2,
         layer: 'near',
+        color,
       });
     }
 
     starsRef.current = stars;
+
+    // Initialize distant planets (static, 2-3 visible)
+    const planets: Planet[] = [];
+    const planetCount = 2 + Math.floor(Math.random() * 2);
+    for (let i = 0; i < planetCount; i++) {
+      const colorRoll = Math.random();
+      let color = COLORS.planetPurple;
+      let glowColor = 'rgba(139, 92, 246, 0.3)';
+      if (colorRoll > 0.66) {
+        color = COLORS.planetBlue;
+        glowColor = 'rgba(59, 130, 246, 0.3)';
+      } else if (colorRoll > 0.33) {
+        color = COLORS.planetTeal;
+        glowColor = 'rgba(20, 184, 166, 0.3)';
+      }
+
+      planets.push({
+        x: 100 + Math.random() * (width - 200),
+        y: 50 + Math.random() * (height * 0.4),
+        size: 8 + Math.random() * 12,
+        color,
+        glowColor,
+        layer: Math.random() > 0.5 ? 'far' : 'mid',
+      });
+    }
+    planetsRef.current = planets;
   }, []);
 
-  // Spawn a new rocket
+  // Spawn a new rocket - angle is direction of travel
   const spawnRocket = useCallback((width: number, height: number) => {
+    // Rockets fly up and to the right: angle between -50 and -70 degrees
+    const travelAngle = -50 - Math.random() * 20;
     const rocket: Rocket = {
       id: Date.now() + Math.random(),
-      x: -50 + Math.random() * (width * 0.3),
-      y: height + 50,
-      size: 20 + Math.random() * 16,
-      speed: 0.3 + Math.random() * 0.2,
-      angle: -55 - Math.random() * 20, // -55 to -75 degrees (up and right)
+      x: Math.random() * (width * 0.4),
+      y: height + 30,
+      size: 24 + Math.random() * 12,
+      speed: 0.6 + Math.random() * 0.3,
+      angle: travelAngle,
     };
     rocketsRef.current.push(rocket);
   }, []);
 
-  // Spawn a new comet
+  // Spawn a comet - travels mostly horizontal with slight downward angle
   const spawnComet = useCallback((_width: number, height: number) => {
+    const travelAngle = 5 + Math.random() * 10; // Slight downward (positive = down in screen coords)
     const comet: Comet = {
       id: Date.now() + Math.random(),
-      x: -100,
-      y: 50 + Math.random() * (height * 0.5),
-      speed: 0.8 + Math.random() * 0.4,
-      angle: -5 - Math.random() * 10, // Slight downward angle
-      trailLength: 150 + Math.random() * 100,
+      x: -150,
+      y: 30 + Math.random() * (height * 0.4),
+      speed: 1.2 + Math.random() * 0.6,
+      angle: travelAngle,
+      trailLength: 180 + Math.random() * 120,
     };
     cometsRef.current.push(comet);
   }, []);
@@ -134,115 +201,181 @@ export default function SpaceBackground() {
   const spawnShootingStar = useCallback((width: number, height: number) => {
     const shootingStar: ShootingStar = {
       id: Date.now() + Math.random(),
-      x: Math.random() * width * 0.8,
-      y: Math.random() * height * 0.4,
-      length: 80 + Math.random() * 60,
-      speed: 15 + Math.random() * 10,
-      angle: 15 + Math.random() * 30, // Downward right
+      x: Math.random() * width * 0.7,
+      y: Math.random() * height * 0.3,
+      length: 100 + Math.random() * 80,
+      speed: 18 + Math.random() * 12,
+      angle: 20 + Math.random() * 25,
       opacity: 1,
       life: 1,
     };
     shootingStarsRef.current.push(shootingStar);
   }, []);
 
-  // Draw a minimal rocket
-  const drawRocket = useCallback((ctx: CanvasRenderingContext2D, rocket: Rocket, scrollOffset: number) => {
+  // Spawn a satellite
+  const spawnSatellite = useCallback((width: number, height: number) => {
+    const fromLeft = Math.random() > 0.5;
+    const satellite: Satellite = {
+      id: Date.now() + Math.random(),
+      x: fromLeft ? -10 : width + 10,
+      y: 50 + Math.random() * (height * 0.5),
+      speed: 0.3 + Math.random() * 0.2,
+      angle: fromLeft ? (Math.random() * 10 - 5) : (180 + Math.random() * 10 - 5),
+      size: 2 + Math.random() * 1.5,
+      blinkPhase: Math.random() * Math.PI * 2,
+    };
+    satellitesRef.current.push(satellite);
+  }, []);
+
+  // Draw rocket with animated exhaust - pointing in direction of travel
+  const drawRocket = useCallback((ctx: CanvasRenderingContext2D, rocket: Rocket, scrollOffset: number, time: number) => {
     const { x, y, size, angle } = rocket;
     const adjustedY = y - scrollOffset * 0.3;
 
     ctx.save();
     ctx.translate(x, adjustedY);
-    ctx.rotate((angle * Math.PI) / 180);
+    // Rotate so rocket points in direction of travel
+    // Rocket is drawn pointing UP (-90°), so add 90° to align with travel direction
+    ctx.rotate(((angle + 90) * Math.PI) / 180);
 
-    const scale = size / 24;
+    const scale = size / 28;
     ctx.scale(scale, scale);
 
-    // Exhaust glow (subtle amber)
-    const exhaustGradient = ctx.createRadialGradient(0, 14, 0, 0, 14, 8);
-    exhaustGradient.addColorStop(0, 'rgba(249, 115, 22, 0.6)');
-    exhaustGradient.addColorStop(0.5, 'rgba(249, 115, 22, 0.2)');
-    exhaustGradient.addColorStop(1, 'transparent');
-    ctx.fillStyle = exhaustGradient;
+    // Animated exhaust flame
+    const flicker = 0.8 + 0.2 * Math.sin(time * 0.02) * Math.sin(time * 0.035);
+    const flicker2 = 0.7 + 0.3 * Math.sin(time * 0.025 + 1);
+
+    // Outer exhaust glow
+    const outerExhaust = ctx.createRadialGradient(0, 18, 0, 0, 22, 14 * flicker);
+    outerExhaust.addColorStop(0, 'rgba(239, 68, 68, 0.8)');
+    outerExhaust.addColorStop(0.5, 'rgba(249, 115, 22, 0.4)');
+    outerExhaust.addColorStop(1, 'transparent');
+    ctx.fillStyle = outerExhaust;
     ctx.beginPath();
-    ctx.ellipse(0, 16, 4, 6, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, 20, 6 * flicker, 12 * flicker, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Rocket body (minimal silhouette)
+    // Inner exhaust core (bright)
+    const innerExhaust = ctx.createRadialGradient(0, 16, 0, 0, 18, 8 * flicker2);
+    innerExhaust.addColorStop(0, 'rgba(254, 243, 199, 1)');
+    innerExhaust.addColorStop(0.4, 'rgba(251, 191, 36, 0.9)');
+    innerExhaust.addColorStop(0.7, 'rgba(249, 115, 22, 0.6)');
+    innerExhaust.addColorStop(1, 'transparent');
+    ctx.fillStyle = innerExhaust;
+    ctx.beginPath();
+    ctx.ellipse(0, 17, 3 * flicker2, 7 * flicker2, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Rocket body
     ctx.fillStyle = COLORS.rocketBody;
     ctx.beginPath();
-    // Nose cone
-    ctx.moveTo(0, -12);
-    ctx.lineTo(4, -4);
-    ctx.lineTo(4, 8);
-    // Fins
-    ctx.lineTo(6, 12);
-    ctx.lineTo(4, 10);
-    ctx.lineTo(4, 12);
-    ctx.lineTo(-4, 12);
-    ctx.lineTo(-4, 10);
-    ctx.lineTo(-6, 12);
-    ctx.lineTo(-4, 8);
-    ctx.lineTo(-4, -4);
+    ctx.moveTo(0, -14);     // Nose tip
+    ctx.lineTo(5, -6);      // Right shoulder
+    ctx.lineTo(5, 10);      // Right body
+    ctx.lineTo(7, 14);      // Right fin tip
+    ctx.lineTo(5, 12);      // Right fin inner
+    ctx.lineTo(3, 14);      // Right fin base
+    ctx.lineTo(-3, 14);     // Left fin base
+    ctx.lineTo(-5, 12);     // Left fin inner
+    ctx.lineTo(-7, 14);     // Left fin tip
+    ctx.lineTo(-5, 10);     // Left body
+    ctx.lineTo(-5, -6);     // Left shoulder
     ctx.closePath();
     ctx.fill();
 
-    // Window (glowing dot)
-    const windowGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 3);
-    windowGradient.addColorStop(0, COLORS.rocketWindow);
-    windowGradient.addColorStop(0.6, 'rgba(59, 130, 246, 0.5)');
-    windowGradient.addColorStop(1, 'transparent');
+    // Nose cone (red)
+    ctx.fillStyle = COLORS.rocketNose;
+    ctx.beginPath();
+    ctx.moveTo(0, -14);
+    ctx.lineTo(4, -7);
+    ctx.lineTo(-4, -7);
+    ctx.closePath();
+    ctx.fill();
+
+    // Fins (red accent)
+    ctx.fillStyle = COLORS.rocketNose;
+    ctx.beginPath();
+    ctx.moveTo(5, 10);
+    ctx.lineTo(7, 14);
+    ctx.lineTo(5, 12);
+    ctx.lineTo(3, 14);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-5, 10);
+    ctx.lineTo(-7, 14);
+    ctx.lineTo(-5, 12);
+    ctx.lineTo(-3, 14);
+    ctx.closePath();
+    ctx.fill();
+
+    // Window (glowing)
+    const windowGradient = ctx.createRadialGradient(0, -1, 0, 0, -1, 4);
+    windowGradient.addColorStop(0, '#93c5fd');
+    windowGradient.addColorStop(0.5, COLORS.rocketWindow);
+    windowGradient.addColorStop(1, 'rgba(59, 130, 246, 0.3)');
     ctx.fillStyle = windowGradient;
     ctx.beginPath();
-    ctx.arc(0, 0, 3, 0, Math.PI * 2);
+    ctx.arc(0, -1, 3, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.restore();
   }, []);
 
-  // Draw a comet with warm trail
-  const drawComet = useCallback((ctx: CanvasRenderingContext2D, comet: Comet, scrollOffset: number) => {
+  // Draw comet with trail pointing opposite to direction of travel
+  const drawComet = useCallback((ctx: CanvasRenderingContext2D, comet: Comet, scrollOffset: number, time: number) => {
     const { x, y, angle, trailLength } = comet;
     const adjustedY = y - scrollOffset * 0.3;
 
+    // Trail points opposite to direction of travel
     const angleRad = (angle * Math.PI) / 180;
     const tailX = x - Math.cos(angleRad) * trailLength;
     const tailY = adjustedY - Math.sin(angleRad) * trailLength;
 
-    // Trail gradient
+    // Animated shimmer
+    const shimmer = 0.9 + 0.1 * Math.sin(time * 0.01);
+
+    // Wide outer glow trail
+    ctx.beginPath();
+    ctx.moveTo(x, adjustedY);
+    ctx.lineTo(tailX, tailY);
+    ctx.strokeStyle = 'rgba(249, 115, 22, 0.08)';
+    ctx.lineWidth = 16;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Main trail gradient
     const trailGradient = ctx.createLinearGradient(x, adjustedY, tailX, tailY);
-    trailGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-    trailGradient.addColorStop(0.1, 'rgba(249, 115, 22, 0.7)');
-    trailGradient.addColorStop(0.4, 'rgba(234, 88, 12, 0.4)');
+    trailGradient.addColorStop(0, `rgba(255, 255, 255, ${0.95 * shimmer})`);
+    trailGradient.addColorStop(0.05, `rgba(254, 243, 199, ${0.9 * shimmer})`);
+    trailGradient.addColorStop(0.15, `rgba(249, 115, 22, ${0.7 * shimmer})`);
+    trailGradient.addColorStop(0.4, 'rgba(234, 88, 12, 0.35)');
     trailGradient.addColorStop(0.7, 'rgba(234, 88, 12, 0.1)');
     trailGradient.addColorStop(1, 'transparent');
 
-    // Draw trail
     ctx.beginPath();
     ctx.moveTo(x, adjustedY);
     ctx.lineTo(tailX, tailY);
     ctx.strokeStyle = trailGradient;
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
-    ctx.stroke();
-
-    // Wider faint trail
-    ctx.beginPath();
-    ctx.moveTo(x, adjustedY);
-    ctx.lineTo(tailX, tailY);
-    ctx.strokeStyle = 'rgba(249, 115, 22, 0.1)';
-    ctx.lineWidth = 8;
+    ctx.lineWidth = 4;
     ctx.stroke();
 
     // Core glow
-    const coreGradient = ctx.createRadialGradient(x, adjustedY, 0, x, adjustedY, 8);
+    const coreGradient = ctx.createRadialGradient(x, adjustedY, 0, x, adjustedY, 10);
     coreGradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    coreGradient.addColorStop(0.3, 'rgba(249, 115, 22, 0.8)');
-    coreGradient.addColorStop(0.6, 'rgba(249, 115, 22, 0.3)');
+    coreGradient.addColorStop(0.2, 'rgba(254, 243, 199, 0.9)');
+    coreGradient.addColorStop(0.5, 'rgba(249, 115, 22, 0.5)');
     coreGradient.addColorStop(1, 'transparent');
 
     ctx.fillStyle = coreGradient;
     ctx.beginPath();
-    ctx.arc(x, adjustedY, 8, 0, Math.PI * 2);
+    ctx.arc(x, adjustedY, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Bright center
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.beginPath();
+    ctx.arc(x, adjustedY, 3, 0, Math.PI * 2);
     ctx.fill();
   }, []);
 
@@ -253,80 +386,176 @@ export default function SpaceBackground() {
 
     const angleRad = (angle * Math.PI) / 180;
     const tailX = x - Math.cos(angleRad) * length;
-    const tailY = adjustedY + Math.sin(angleRad) * length;
+    const tailY = adjustedY - Math.sin(angleRad) * length;
 
     const gradient = ctx.createLinearGradient(x, adjustedY, tailX, tailY);
     gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-    gradient.addColorStop(0.2, `rgba(147, 197, 253, ${opacity * 0.8})`);
+    gradient.addColorStop(0.15, `rgba(191, 219, 254, ${opacity * 0.9})`);
+    gradient.addColorStop(0.5, `rgba(147, 197, 253, ${opacity * 0.5})`);
     gradient.addColorStop(1, 'transparent');
 
     ctx.beginPath();
     ctx.moveTo(x, adjustedY);
     ctx.lineTo(tailX, tailY);
     ctx.strokeStyle = gradient;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';
     ctx.stroke();
+
+    // Bright head
+    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+    ctx.beginPath();
+    ctx.arc(x, adjustedY, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+  }, []);
+
+  // Draw satellite
+  const drawSatellite = useCallback((ctx: CanvasRenderingContext2D, satellite: Satellite, scrollOffset: number, time: number) => {
+    const { x, y, size, blinkPhase } = satellite;
+    const adjustedY = y - scrollOffset * 0.25;
+
+    // Blinking light
+    const blink = Math.sin(time * 0.003 + blinkPhase) > 0.7 ? 1 : 0.3;
+
+    ctx.fillStyle = `rgba(148, 163, 184, ${0.6 + blink * 0.4})`;
+    ctx.beginPath();
+    ctx.arc(x, adjustedY, size, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Solar panel glint
+    if (blink > 0.5) {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.beginPath();
+      ctx.arc(x, adjustedY, size * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }, []);
+
+  // Draw planet
+  const drawPlanet = useCallback((ctx: CanvasRenderingContext2D, planet: Planet, scrollOffset: number) => {
+    const parallax = planet.layer === 'far' ? 0.05 : 0.1;
+    const adjustedY = planet.y - scrollOffset * parallax;
+
+    // Outer glow
+    const glowGradient = ctx.createRadialGradient(
+      planet.x, adjustedY, planet.size * 0.5,
+      planet.x, adjustedY, planet.size * 2
+    );
+    glowGradient.addColorStop(0, planet.glowColor);
+    glowGradient.addColorStop(1, 'transparent');
+    ctx.fillStyle = glowGradient;
+    ctx.beginPath();
+    ctx.arc(planet.x, adjustedY, planet.size * 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Planet body
+    const bodyGradient = ctx.createRadialGradient(
+      planet.x - planet.size * 0.3, adjustedY - planet.size * 0.3, 0,
+      planet.x, adjustedY, planet.size
+    );
+    bodyGradient.addColorStop(0, planet.color);
+    bodyGradient.addColorStop(1, `${planet.color}88`);
+    ctx.fillStyle = bodyGradient;
+    ctx.beginPath();
+    ctx.arc(planet.x, adjustedY, planet.size, 0, Math.PI * 2);
+    ctx.fill();
   }, []);
 
   // Main animation loop
   const animate = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number, time: number) => {
-    // Clear canvas
     ctx.clearRect(0, 0, width, height);
 
-    // Deep space gradient background
+    // Deep space gradient
     const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
     bgGradient.addColorStop(0, COLORS.deepSpace);
+    bgGradient.addColorStop(0.5, '#111827');
     bgGradient.addColorStop(1, COLORS.deepSpaceLight);
     ctx.fillStyle = bgGradient;
     ctx.fillRect(0, 0, width, height);
 
     const scrollOffset = scrollRef.current;
 
-    // Draw stars
+    // Draw distant planets (behind everything)
+    planetsRef.current.forEach((planet) => {
+      drawPlanet(ctx, planet, scrollOffset);
+    });
+
+    // Draw stars with enhanced twinkling
     starsRef.current.forEach((star) => {
       const parallaxMultiplier = star.layer === 'far' ? 0.1 : 0.2;
       const adjustedY = star.y - scrollOffset * parallaxMultiplier;
 
       let opacity = star.opacity;
       if (star.twinkleSpeed > 0 && !prefersReducedMotion) {
-        opacity *= 0.7 + 0.3 * Math.sin(time * star.twinkleSpeed * 0.001 + star.twinklePhase);
+        // Enhanced twinkling: wider range, more noticeable
+        const twinkle = Math.sin(time * star.twinkleSpeed * 0.002 + star.twinklePhase);
+        opacity *= 0.4 + 0.6 * ((twinkle + 1) / 2); // Range: 0.4 to 1.0
       }
 
-      // Slight blue tint for some near stars
-      const isBlue = star.layer === 'near' && star.twinklePhase > Math.PI;
-      const color = isBlue
-        ? `rgba(147, 197, 253, ${opacity})`
-        : `rgba(255, 255, 255, ${opacity})`;
+      // Draw glow for near stars
+      if (star.layer === 'near' && opacity > 0.6) {
+        const glowGradient = ctx.createRadialGradient(
+          star.x, adjustedY, 0,
+          star.x, adjustedY, star.size * 3
+        );
+        glowGradient.addColorStop(0, star.color.replace(')', `, ${opacity * 0.5})`).replace('rgb', 'rgba'));
+        glowGradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = glowGradient;
+        ctx.beginPath();
+        ctx.arc(star.x, adjustedY, star.size * 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
-      ctx.fillStyle = color;
+      // Star core
+      ctx.fillStyle = star.color.includes('rgba')
+        ? star.color.replace(/[\d.]+\)$/, `${opacity})`)
+        : `rgba(255, 255, 255, ${opacity})`;
       ctx.beginPath();
       ctx.arc(star.x, adjustedY, star.size, 0, Math.PI * 2);
       ctx.fill();
     });
 
     if (!prefersReducedMotion) {
-      // Spawn rockets
-      if (time - lastRocketSpawnRef.current > 20000 + Math.random() * 10000) {
-        if (rocketsRef.current.length < 3) {
+      // Spawn management
+      if (time - lastRocketSpawnRef.current > 25000 + Math.random() * 15000) {
+        if (rocketsRef.current.length < 2) {
           spawnRocket(width, height);
           lastRocketSpawnRef.current = time;
         }
       }
 
-      // Spawn comets
-      if (time - lastCometSpawnRef.current > 45000 + Math.random() * 30000) {
+      if (time - lastCometSpawnRef.current > 50000 + Math.random() * 40000) {
         if (cometsRef.current.length < 2) {
           spawnComet(width, height);
           lastCometSpawnRef.current = time;
         }
       }
 
-      // Spawn shooting stars
-      if (time - lastShootingStarRef.current > 30000 + Math.random() * 30000) {
+      if (time - lastShootingStarRef.current > 25000 + Math.random() * 35000) {
         spawnShootingStar(width, height);
         lastShootingStarRef.current = time;
       }
+
+      if (time - lastSatelliteSpawnRef.current > 35000 + Math.random() * 25000) {
+        if (satellitesRef.current.length < 2) {
+          spawnSatellite(width, height);
+          lastSatelliteSpawnRef.current = time;
+        }
+      }
+
+      // Update and draw satellites
+      satellitesRef.current = satellitesRef.current.filter((satellite) => {
+        const angleRad = (satellite.angle * Math.PI) / 180;
+        satellite.x += Math.cos(angleRad) * satellite.speed;
+        satellite.y += Math.sin(angleRad) * satellite.speed;
+
+        if (satellite.x < -20 || satellite.x > width + 20) {
+          return false;
+        }
+
+        drawSatellite(ctx, satellite, scrollOffset, time);
+        return true;
+      });
 
       // Update and draw rockets
       rocketsRef.current = rocketsRef.current.filter((rocket) => {
@@ -334,12 +563,11 @@ export default function SpaceBackground() {
         rocket.x += Math.cos(angleRad) * rocket.speed;
         rocket.y += Math.sin(angleRad) * rocket.speed;
 
-        // Remove if off screen
-        if (rocket.y < -100 || rocket.x > width + 100) {
+        if (rocket.y < -100 || rocket.x > width + 100 || rocket.x < -100) {
           return false;
         }
 
-        drawRocket(ctx, rocket, scrollOffset);
+        drawRocket(ctx, rocket, scrollOffset, time);
         return true;
       });
 
@@ -347,14 +575,13 @@ export default function SpaceBackground() {
       cometsRef.current = cometsRef.current.filter((comet) => {
         const angleRad = (comet.angle * Math.PI) / 180;
         comet.x += Math.cos(angleRad) * comet.speed;
-        comet.y -= Math.sin(angleRad) * comet.speed;
+        comet.y += Math.sin(angleRad) * comet.speed;
 
-        // Remove if off screen
-        if (comet.x > width + 200) {
+        if (comet.x > width + 300) {
           return false;
         }
 
-        drawComet(ctx, comet, scrollOffset);
+        drawComet(ctx, comet, scrollOffset, time);
         return true;
       });
 
@@ -363,8 +590,8 @@ export default function SpaceBackground() {
         const angleRad = (star.angle * Math.PI) / 180;
         star.x += Math.cos(angleRad) * star.speed;
         star.y += Math.sin(angleRad) * star.speed;
-        star.life -= 0.02;
-        star.opacity = star.life;
+        star.life -= 0.025;
+        star.opacity = Math.max(0, star.life);
 
         if (star.life <= 0) {
           return false;
@@ -374,9 +601,9 @@ export default function SpaceBackground() {
         return true;
       });
     }
-  }, [prefersReducedMotion, spawnRocket, spawnComet, spawnShootingStar, drawRocket, drawComet, drawShootingStar]);
+  }, [prefersReducedMotion, spawnRocket, spawnComet, spawnShootingStar, spawnSatellite, drawRocket, drawComet, drawShootingStar, drawSatellite, drawPlanet]);
 
-  // Setup and animation effect
+  // Setup effect
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -385,7 +612,6 @@ export default function SpaceBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Handle resize
     const handleResize = () => {
       const rect = container.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
@@ -400,13 +626,11 @@ export default function SpaceBackground() {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Handle scroll
     const handleScroll = () => {
       scrollRef.current = window.scrollY;
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Animation loop
     const loop = (time: number) => {
       if (theme === 'dark') {
         const rect = container.getBoundingClientRect();
@@ -415,34 +639,32 @@ export default function SpaceBackground() {
       animationRef.current = requestAnimationFrame(loop);
     };
 
-    // Start animation
     animationRef.current = requestAnimationFrame(loop);
 
-    // Initial spawns (delayed)
+    // Initial spawns
     setTimeout(() => {
-      if (rocketsRef.current.length === 0) {
-        const rect = container.getBoundingClientRect();
-        spawnRocket(rect.width, rect.height);
-      }
-    }, 2000);
+      const rect = container.getBoundingClientRect();
+      if (rocketsRef.current.length === 0) spawnRocket(rect.width, rect.height);
+    }, 3000);
 
     setTimeout(() => {
-      if (cometsRef.current.length === 0) {
-        const rect = container.getBoundingClientRect();
-        spawnComet(rect.width, rect.height);
-      }
+      const rect = container.getBoundingClientRect();
+      if (cometsRef.current.length === 0) spawnComet(rect.width, rect.height);
+    }, 8000);
+
+    setTimeout(() => {
+      const rect = container.getBoundingClientRect();
+      if (satellitesRef.current.length === 0) spawnSatellite(rect.width, rect.height);
     }, 5000);
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [theme, initStars, animate, spawnRocket, spawnComet]);
+  }, [theme, initStars, animate, spawnRocket, spawnComet, spawnSatellite]);
 
-  // Watch for theme changes
+  // Theme observer
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -454,18 +676,13 @@ export default function SpaceBackground() {
     });
 
     observer.observe(document.documentElement, { attributes: true });
-
-    // Initial theme
     const initialTheme = document.documentElement.getAttribute('data-theme') as 'dark' | 'light';
     setTheme(initialTheme || 'dark');
 
     return () => observer.disconnect();
   }, []);
 
-  // Hide in light mode
-  if (theme === 'light') {
-    return null;
-  }
+  if (theme === 'light') return null;
 
   return (
     <div
@@ -474,10 +691,7 @@ export default function SpaceBackground() {
       aria-hidden="true"
       role="presentation"
     >
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-      />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
     </div>
   );
 }
