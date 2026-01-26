@@ -22,7 +22,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run preview',
+    command: process.env.CI
+      ? 'npx serve dist-serve -l 4321'
+      : 'npm run preview',
     url: 'http://localhost:4321/deep-vibe-2026',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
