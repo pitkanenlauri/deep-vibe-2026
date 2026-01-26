@@ -951,9 +951,17 @@ blockquote cite {
   --color-section-accent: #1e3a5f;
 }
 
-[data-theme="dark"] body {
+[data-theme="dark"] html {
   background-color: var(--color-dark-bg);
+}
+
+[data-theme="dark"] body {
+  background-color: transparent !important;
   color: var(--color-dark-text);
+}
+
+[data-theme="dark"] body.bg-gray-50 {
+  background-color: transparent !important;
 }
 
 /* Dark mode text colors */
