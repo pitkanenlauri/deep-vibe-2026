@@ -35,9 +35,8 @@
       }
     ],
     "ctaLinks": [
-      { "label": "LinkedIn", "href": "https://linkedin.com/in/lauripitkanen", "icon": "linkedin" },
-      { "label": "GitHub", "href": "https://github.com/lauripitkanen", "icon": "github" },
-      { "label": "Email", "href": "mailto:lauri@example.com", "icon": "mail" }
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/in/pitkanenlauri/", "icon": "linkedin" },
+      { "label": "GitHub", "href": "https://github.com/pitkanenlauri", "icon": "github" }
     ]
   },
   "highlight": {
@@ -262,7 +261,7 @@
   "education": [
     {
       "id": "physics-studies",
-      "degree": "Physics Studies (M.Sc. incomplete)",
+      "degree": "Physics (B.Sc. & M.Sc. studies)",
       "institution": "University of Turku",
       "focus": "Physics",
       "type": "other",

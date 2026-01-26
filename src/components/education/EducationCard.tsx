@@ -22,6 +22,10 @@ interface Props {
 
 function formatPeriod(start: string, end: string | null): string {
   const formatDate = (dateStr: string) => {
+    // Handle both "YYYY" and "YYYY-MM" formats
+    if (!dateStr.includes('-')) {
+      return dateStr; // Just year, return as-is
+    }
     const [year, month] = dateStr.split('-');
     const date = new Date(parseInt(year), parseInt(month) - 1);
     return date.toLocaleDateString('en-US', { year: 'numeric' });
