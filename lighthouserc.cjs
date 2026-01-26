@@ -5,7 +5,7 @@ module.exports = {
       numberOfRuns: 3,
     },
     assert: {
-      preset: 'lighthouse:recommended',
+      // Using custom assertions only (no preset for cleaner control)
       assertions: {
         // Performance budget from spec
         'categories:performance': ['error', { minScore: 0.95 }],
