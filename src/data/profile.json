@@ -315,14 +315,41 @@
   ],
   "meta": {
     "buildTimestamp": "2026-01-26T12:00:00Z",
-    "agents": [
-      { "name": "Architect", "contribution": "Foundation, schemas, project setup" },
-      { "name": "Scaffolder", "contribution": "Layout and structure" },
-      { "name": "Visualizer", "contribution": "Hero and animations" },
-      { "name": "Reporter", "contribution": "Meta footer and build info" },
-      { "name": "Furiosa", "contribution": "Full LinkedIn profile migration" }
-    ],
     "bundleSize": "< 100KB",
-    "sourceUrl": "https://github.com/pitkanenlauri/deep-vibe-2026"
+    "sourceUrl": "https://github.com/pitkanenlauri/deep-vibe-2026",
+    "gasTown": {
+      "name": "Gas Town",
+      "tagline": "Multi-agent AI workflow system",
+      "description": "An open-source multi-agent orchestration system for Claude Code where specialized AI agents collaborate to build software.",
+      "url": "https://github.com/steveyegge/gastown",
+      "roles": [
+        { "name": "Mayor", "emoji": "🎩", "description": "Orchestrates the swarm, assigns beads, coordinates work" },
+        { "name": "Polecats", "emoji": "🦨", "description": "Ephemeral worker agents that spawn, complete a task, and disappear" },
+        { "name": "Refinery", "emoji": "🏭", "description": "Processes merge queue, resolves conflicts, ensures quality" },
+        { "name": "Witness", "emoji": "🦉", "description": "Monitors agent health, tracks progress, reports completion" }
+      ]
+    },
+    "polecats": [
+      { "name": "furiosa", "beads": 7, "focus": ["Foundation", "Content", "Deploy", "Schema", "Education", "Polish"] },
+      { "name": "nux", "beads": 4, "focus": ["Hero", "Skills", "Visualizations", "Journey Arc"] },
+      { "name": "slit", "beads": 4, "focus": ["Timeline", "Animations", "Micro-interactions"] },
+      { "name": "rictus", "beads": 3, "focus": ["Philosophy", "Scroll animations", "Colors"] },
+      { "name": "dementus", "beads": 1, "focus": ["Skills Chart"] },
+      { "name": "capable", "beads": 1, "focus": ["Meta Footer"] }
+    ],
+    "timeline": [
+      { "time": "11:51", "date": "Jan 25", "title": "Foundation", "description": "Astro + Tailwind + Zod schemas initialized" },
+      { "time": "14:57", "date": "Jan 25", "title": "Swarm Peak", "description": "6 components merged simultaneously from parallel polecats", "highlight": true, "beadsMerged": 6 },
+      { "time": "15:22", "date": "Jan 25", "title": "Deployed", "description": "Live on GitHub Pages" },
+      { "time": "20:31", "date": "Jan 25", "title": "Phase 2", "description": "Animations, timeline enhancements, content migration", "beadsMerged": 4 },
+      { "time": "21:36", "date": "Jan 25", "title": "Polish", "description": "Education section, micro-interactions complete" },
+      { "time": "14:00", "date": "Jan 26", "title": "Final", "description": "Space background & UI refinements" }
+    ],
+    "stats": {
+      "beads": 21,
+      "agents": 6,
+      "commits": 45,
+      "duration": "~10h"
+    }
   }
 }

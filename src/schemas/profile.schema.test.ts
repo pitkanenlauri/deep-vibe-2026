@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
   ProfileSchema,
-  EducationSchema,
   VolunteeringSchema,
   EmploymentTypeEnum,
   CareerLevelEnum,
@@ -74,7 +73,13 @@ describe('Profile Schema Validation', () => {
 
     if (result.success) {
       expect(result.data.meta.sourceUrl).toMatch(/^https?:\/\//);
-      expect(result.data.meta.agents.length).toBeGreaterThan(0);
+      // Check for enhanced Gas Town data
+      if (result.data.meta.polecats) {
+        expect(result.data.meta.polecats.length).toBeGreaterThan(0);
+      }
+      if (result.data.meta.stats) {
+        expect(result.data.meta.stats.beads).toBeGreaterThan(0);
+      }
     }
   });
 

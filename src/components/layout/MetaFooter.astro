@@ -89,15 +89,20 @@ const sourceUrl = 'https://github.com/pitkanenlauri/deep-vibe-2026';
 
       <!-- Gastown Agent Credits -->
       <div class="text-center md:text-left">
-        <h3 class="text-small font-semibold text-gray-700 mb-3">Built by Gastown Agents</h3>
+        <h3 class="text-small font-semibold text-gray-700 mb-3">Built by Gas Town Agents</h3>
         <ul class="space-y-2 text-small">
-          {meta.agents.map((agent: { name: string; contribution: string }) => (
+          {meta.polecats?.map((polecat: { name: string; beads: number; focus: string[] }) => (
             <li class="flex flex-col md:flex-row md:gap-2">
-              <span class="font-medium text-primary-600">{agent.name}</span>
-              <span class="text-muted">{agent.contribution}</span>
+              <span class="font-medium text-primary-600 capitalize">🦨 {polecat.name}</span>
+              <span class="text-muted">{polecat.beads} beads</span>
             </li>
           ))}
         </ul>
+        {meta.stats && (
+          <p class="mt-3 text-small text-muted">
+            {meta.stats.beads} beads | {meta.stats.agents} agents | {meta.stats.duration}
+          </p>
+        )}
       </div>
 
       <!-- Source & Links -->

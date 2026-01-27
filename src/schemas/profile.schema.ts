@@ -164,17 +164,59 @@ const VolunteeringSchema = z.object({
 });
 
 // ═══════════════════════════════════════════════════════════
-// META (Build Info)
+// META (Build Info) - Enhanced for Gas Town
 // ═══════════════════════════════════════════════════════════
+const GasTownRoleSchema = z.object({
+  name: z.string(),
+  emoji: z.string(),
+  description: z.string(),
+});
+
+const GasTownSchema = z.object({
+  name: z.string(),
+  tagline: z.string(),
+  description: z.string(),
+  url: z.string().url(),
+  roles: z.array(GasTownRoleSchema),
+});
+
+const PolecatSchema = z.object({
+  name: z.string(),
+  beads: z.number(),
+  focus: z.array(z.string()),
+});
+
+const TimelineMilestoneSchema = z.object({
+  time: z.string(),
+  date: z.string(),
+  title: z.string(),
+  description: z.string(),
+  highlight: z.boolean().optional(),
+  beadsMerged: z.number().optional(),
+});
+
+const BuildStatsSchema = z.object({
+  beads: z.number(),
+  agents: z.number(),
+  commits: z.number(),
+  duration: z.string(),
+});
+
 const AgenticMetaSchema = z.object({
   buildTimestamp: z.string().datetime(),
+  bundleSize: z.string(),
+  sourceUrl: z.string().url(),
+  lighthouseScore: z.number().optional(),
+  // Legacy agents field (optional for backwards compatibility)
   agents: z.array(z.object({
     name: z.string(),
     contribution: z.string(),
-  })),
-  bundleSize: z.string(),
-  lighthouseScore: z.number().optional(),
-  sourceUrl: z.string().url(),
+  })).optional(),
+  // Enhanced Gas Town fields
+  gasTown: GasTownSchema.optional(),
+  polecats: z.array(PolecatSchema).optional(),
+  timeline: z.array(TimelineMilestoneSchema).optional(),
+  stats: BuildStatsSchema.optional(),
 });
 
 // ═══════════════════════════════════════════════════════════
@@ -206,6 +248,11 @@ export {
   VolunteeringSchema,
   EmploymentTypeEnum,
   CareerLevelEnum,
+  GasTownSchema,
+  PolecatSchema,
+  TimelineMilestoneSchema,
+  BuildStatsSchema,
+  AgenticMetaSchema,
 };
 
 // Export inferred types
@@ -215,3 +262,8 @@ export type Experience = z.infer<typeof ExperienceSchema>;
 export type EducationType = z.infer<typeof EducationTypeEnum>;
 export type EmploymentType = z.infer<typeof EmploymentTypeEnum>;
 export type CareerLevel = z.infer<typeof CareerLevelEnum>;
+export type GasTown = z.infer<typeof GasTownSchema>;
+export type Polecat = z.infer<typeof PolecatSchema>;
+export type TimelineMilestone = z.infer<typeof TimelineMilestoneSchema>;
+export type BuildStats = z.infer<typeof BuildStatsSchema>;
+export type AgenticMeta = z.infer<typeof AgenticMetaSchema>;

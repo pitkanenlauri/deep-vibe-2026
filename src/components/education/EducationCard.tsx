@@ -47,7 +47,7 @@ function getDegreeIcon(type: string): string {
   }
 }
 
-export default function EducationCard({ education, index = 0, isLast = false }: Props) {
+export default function EducationCard({ education, index = 0, isLast: _isLast = false }: Props) {
   const prefersReducedMotion = useReducedMotion();
 
   const { degree, institution, focus, type, period, transferableInsight, highlights } = education;
