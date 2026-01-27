@@ -129,7 +129,7 @@ export default function KonamiCode() {
         }
         return prev + 1;
       });
-    }, prefersReducedMotion ? 50 : 150);
+    }, prefersReducedMotion ? 80 : 280);
 
     return () => clearInterval(interval);
   }, [isOpen, isComplete, prefersReducedMotion]);
@@ -165,6 +165,17 @@ export default function KonamiCode() {
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isOpen]);
+
+  // Listen for custom event to open terminal (from mystery button)
+  useEffect(() => {
+    const handleOpenTerminal = () => {
+      setIsOpen(true);
+      setVisibleLines(0);
+      setIsComplete(false);
+    };
+    window.addEventListener('openGasTownTerminal', handleOpenTerminal);
+    return () => window.removeEventListener('openGasTownTerminal', handleOpenTerminal);
+  }, []);
 
   return (
     <>
