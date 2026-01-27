@@ -16,7 +16,7 @@ import SkillsChart from '../components/skills/SkillsChart';
 import KonamiCode from '../components/easter-eggs/KonamiCode';
 import SpaceBackground from '../components/background/SpaceBackground';
 
-const { hero, highlight, experience, philosophy, skills, education, meta } = profileData;
+const { hero, highlight, experience, philosophy, skills, education } = profileData;
 ---
 
 <html lang="en" data-theme="dark">
@@ -118,16 +118,7 @@ const { hero, highlight, experience, philosophy, skills, education, meta } = pro
 		<!-- Meta Footer: The "How This Was Built" Story -->
 		<MetaFooter />
 
-		<!-- Easter Egg: Konami Code -->
-		<KonamiCode
-			client:idle
-			buildTimestamp={meta.buildTimestamp}
-			bundleSize={meta.bundleSize}
-			sourceUrl={meta.sourceUrl}
-			gasTown={meta.gasTown}
-			polecats={meta.polecats}
-			timeline={meta.timeline}
-			stats={meta.stats}
-		/>
+		<!-- Easter Egg: Konami Code Terminal -->
+		<KonamiCode client:idle />
 	</body>
 </html>

@@ -1146,6 +1146,235 @@ blockquote cite {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   Gas Town Section Styles
+   ═══════════════════════════════════════════════════════════ */
+
+.gas-town-section {
+  max-width: 100%;
+}
+
+.gas-town-accordion-item {
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.gas-town-accordion-item:last-child {
+  border-bottom: none;
+}
+
+.gas-town-accordion-button {
+  width: 100%;
+  padding: 0.75rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-gray-700);
+  transition: color 0.2s;
+}
+
+.gas-town-accordion-button:hover {
+  color: var(--color-primary-600);
+}
+
+.gas-town-accordion-button:focus {
+  outline: none;
+}
+
+.gas-town-accordion-button:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.gas-town-accordion-content {
+  padding-bottom: 1rem;
+}
+
+.gas-town-card {
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.5rem;
+}
+
+.gas-town-text {
+  color: var(--color-gray-900);
+}
+
+.gas-town-text-muted {
+  color: var(--color-gray-600);
+}
+
+.gas-town-highlight {
+  background-color: rgba(147, 51, 234, 0.1);
+}
+
+.gas-town-timeline-line {
+  background-color: var(--color-gray-300);
+}
+
+.gas-town-timeline-dot {
+  background-color: var(--color-gray-300);
+  border-color: var(--color-gray-400);
+}
+
+.gas-town-stats-bar {
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-gray-200);
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] .gas-town-accordion-item {
+  border-color: var(--color-dark-border);
+}
+
+[data-theme="dark"] .gas-town-accordion-button {
+  color: var(--color-dark-text);
+}
+
+[data-theme="dark"] .gas-town-accordion-button:hover {
+  color: var(--color-primary-400);
+}
+
+[data-theme="dark"] .gas-town-card {
+  background-color: rgba(30, 41, 59, 0.6);
+  border-color: var(--color-dark-border);
+}
+
+[data-theme="dark"] .gas-town-text {
+  color: var(--color-dark-text);
+}
+
+[data-theme="dark"] .gas-town-text-muted {
+  color: var(--color-dark-text-muted);
+}
+
+[data-theme="dark"] .gas-town-highlight {
+  background-color: rgba(147, 51, 234, 0.2);
+}
+
+[data-theme="dark"] .gas-town-timeline-line {
+  background-color: var(--color-dark-border);
+}
+
+[data-theme="dark"] .gas-town-timeline-dot {
+  background-color: var(--color-dark-surface);
+  border-color: var(--color-dark-border);
+}
+
+[data-theme="dark"] .gas-town-stats-bar {
+  background-color: rgba(30, 41, 59, 0.8);
+  border-color: var(--color-dark-border);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Terminal Easter Egg Styles
+   ═══════════════════════════════════════════════════════════ */
+
+.terminal-container {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.terminal-header {
+  background-color: #161b22;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #30363d;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-dot-red { background-color: #ff5f56; }
+.terminal-dot-yellow { background-color: #ffbd2e; }
+.terminal-dot-green { background-color: #27c93f; }
+
+.terminal-title {
+  color: #8b949e;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.terminal-body {
+  padding: 1rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  color: #c9d1d9;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.terminal-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.terminal-timestamp {
+  color: #6e7681;
+}
+
+.terminal-mayor { color: #f0883e; }
+.terminal-polecat { color: #58a6ff; }
+.terminal-refinery { color: #a371f7; }
+.terminal-witness { color: #7ee787; }
+.terminal-success { color: #3fb950; }
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background-color: #c9d1d9;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-footer {
+  background-color: #161b22;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #30363d;
+  font-size: 0.75rem;
+  color: #6e7681;
+}
+
+/* Scanline effect (subtle) */
+.terminal-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  opacity: 0.3;
+}
+
+/* ═══════════════════════════════════════════════════════════
    Print Styles
    ═══════════════════════════════════════════════════════════ */
 

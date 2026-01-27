@@ -1,10 +1,11 @@
 ---
 /**
  * MetaFooter Component
- * Displays build metadata, Gastown agent credits, and source link
- * "The How This Was Built Story" - builds trust through transparency
+ * Displays build metadata and Gas Town build story
+ * Features expandable sections for How It Works, Timeline, and Agent Credits
  */
 import profileData from '../../data/profile.json';
+import GasTownSection from './GasTownSection';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -39,81 +40,68 @@ const formattedDate = buildDate.toLocaleDateString('en-US', {
   month: 'short',
   day: 'numeric',
 });
-const formattedTime = buildDate.toLocaleTimeString('en-US', {
-  hour: '2-digit',
-  minute: '2-digit',
-  timeZoneName: 'short',
-});
 
 // Use the actual GitHub repo URL
 const sourceUrl = 'https://github.com/pitkanenlauri/deep-vibe-2026';
 ---
 
-<footer class="mt-24 border-t border-gray-200 bg-gray-100/50">
+<footer class="meta-footer mt-24 border-t">
   <div class="max-w-4xl mx-auto px-4 py-12">
     <!-- Section Header -->
     <div class="text-center mb-8">
-      <h2 class="text-small font-semibold text-gray-500 uppercase tracking-wider">
-        How This Was Built
+      <h2 class="text-small font-semibold uppercase tracking-wider gas-town-text-muted">
+        Built with Gas Town
       </h2>
-      <p class="text-small text-muted mt-1">
-        AI-native development with transparency
+      <p class="text-small gas-town-text-muted mt-1">
+        Multi-agent AI development with transparency
       </p>
     </div>
 
-    <div class="grid gap-8 md:grid-cols-3">
+    <!-- Gas Town Section with Accordions -->
+    {meta.gasTown && meta.polecats && meta.timeline && meta.stats && (
+      <div class="mb-10">
+        <GasTownSection
+          client:visible
+          gasTown={meta.gasTown}
+          polecats={meta.polecats}
+          timeline={meta.timeline}
+          stats={meta.stats}
+        />
+      </div>
+    )}
+
+    <!-- Build Info & Source -->
+    <div class="grid gap-8 md:grid-cols-2 pt-6 border-t meta-footer-border">
       <!-- Build Metadata -->
       <div class="text-center md:text-left">
-        <h3 class="text-small font-semibold text-gray-700 mb-3">Build Info</h3>
-        <dl class="space-y-2 text-small">
+        <h3 class="text-small font-semibold gas-town-text mb-3">Build Info</h3>
+        <dl class="space-y-1 text-small">
           <div class="flex flex-col md:flex-row md:gap-2">
-            <dt class="text-muted">Last built:</dt>
-            <dd class="font-mono text-gray-700">{formattedDate}</dd>
+            <dt class="gas-town-text-muted">Last built:</dt>
+            <dd class="font-mono gas-town-text">{formattedDate}</dd>
           </div>
           <div class="flex flex-col md:flex-row md:gap-2">
-            <dt class="text-muted">Time:</dt>
-            <dd class="font-mono text-gray-700">{formattedTime}</dd>
-          </div>
-          <div class="flex flex-col md:flex-row md:gap-2">
-            <dt class="text-muted">Bundle size:</dt>
-            <dd class="font-mono text-gray-700">{bundleSize}</dd>
+            <dt class="gas-town-text-muted">Bundle:</dt>
+            <dd class="font-mono gas-town-text">{bundleSize}</dd>
           </div>
           {gitCommit !== 'dev' && (
             <div class="flex flex-col md:flex-row md:gap-2">
-              <dt class="text-muted">Commit:</dt>
-              <dd class="font-mono text-gray-700">{gitCommit.slice(0, 7)}</dd>
+              <dt class="gas-town-text-muted">Commit:</dt>
+              <dd class="font-mono gas-town-text">{gitCommit.slice(0, 7)}</dd>
             </div>
           )}
         </dl>
       </div>
 
-      <!-- Gastown Agent Credits -->
-      <div class="text-center md:text-left">
-        <h3 class="text-small font-semibold text-gray-700 mb-3">Built by Gas Town Agents</h3>
-        <ul class="space-y-2 text-small">
-          {meta.polecats?.map((polecat: { name: string; beads: number; focus: string[] }) => (
-            <li class="flex flex-col md:flex-row md:gap-2">
-              <span class="font-medium text-primary-600 capitalize">🦨 {polecat.name}</span>
-              <span class="text-muted">{polecat.beads} beads</span>
-            </li>
-          ))}
-        </ul>
-        {meta.stats && (
-          <p class="mt-3 text-small text-muted">
-            {meta.stats.beads} beads | {meta.stats.agents} agents | {meta.stats.duration}
-          </p>
-        )}
-      </div>
-
       <!-- Source & Links -->
       <div class="text-center md:text-left">
-        <h3 class="text-small font-semibold text-gray-700 mb-3">Source</h3>
+        <h3 class="text-small font-semibold gas-town-text mb-3">Source</h3>
         <div class="space-y-3">
           <a
             href={sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 text-small text-primary-600 hover:text-primary-700 transition-colors duration-fast"
+            class="inline-flex items-center gap-2 text-small text-primary-600 hover:text-primary-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-fast"
           >
             <svg
               class="w-5 h-5"
@@ -129,7 +117,7 @@ const sourceUrl = 'https://github.com/pitkanenlauri/deep-vibe-2026';
             </svg>
             View Source on GitHub
           </a>
-          <p class="text-small text-muted">
+          <p class="text-small gas-town-text-muted">
             Open source. Fork it, learn from it, improve it.
           </p>
         </div>
@@ -137,12 +125,32 @@ const sourceUrl = 'https://github.com/pitkanenlauri/deep-vibe-2026';
     </div>
 
     <!-- Footer Note -->
-    <div class="mt-10 pt-6 border-t border-gray-200 text-center">
-      <p class="text-small text-muted">
-        Built with <a href="https://astro.build" class="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">Astro</a>,
-        <a href="https://tailwindcss.com" class="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">Tailwind CSS</a>,
-        and AI-assisted development.
+    <div class="mt-8 pt-6 border-t meta-footer-border text-center">
+      <p class="text-small gas-town-text-muted">
+        Built with <a href="https://astro.build" class="text-primary-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">Astro</a>,
+        <a href="https://tailwindcss.com" class="text-primary-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">Tailwind CSS</a>,
+        and <a href="https://github.com/steveyegge/gastown" class="text-primary-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">Gas Town</a>.
       </p>
     </div>
   </div>
 </footer>
+
+<style>
+  .meta-footer {
+    background-color: rgba(249, 250, 251, 0.5);
+    border-color: var(--color-gray-200);
+  }
+
+  .meta-footer-border {
+    border-color: var(--color-gray-200);
+  }
+
+  :global([data-theme="dark"]) .meta-footer {
+    background-color: transparent;
+    border-color: var(--color-dark-border);
+  }
+
+  :global([data-theme="dark"]) .meta-footer-border {
+    border-color: var(--color-dark-border);
+  }
+</style>
