@@ -1313,6 +1313,7 @@ blockquote cite {
 
 .terminal-body {
   padding: 1rem;
+  min-height: 60vh;
   max-height: 60vh;
   overflow-y: auto;
   color: #c9d1d9;
