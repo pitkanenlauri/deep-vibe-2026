@@ -213,7 +213,7 @@ export default function KonamiCode() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
               className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
-                         md:max-w-2xl md:w-full terminal-container z-50 flex flex-col max-h-[85vh]"
+                         md:max-w-2xl md:w-full terminal-container z-50 flex flex-col min-h-[70vh] max-h-[85vh]"
             >
               {/* Terminal Header */}
               <div className="terminal-header">
